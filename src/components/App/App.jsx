@@ -5,7 +5,6 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from "../Modal/Modal";
 import { IngridientDetails } from "../IngidientsDetails/IngridientDetails";
 import appStyle from "./App.module.css";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
 import { getData, error } from "../../utils/api";
 
