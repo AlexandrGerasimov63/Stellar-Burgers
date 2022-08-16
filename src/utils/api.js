@@ -6,7 +6,7 @@ const config = {
 }
 
 
-function response (res) {
+function checkResponse (res) {
   if (res.ok) {
     return res.json();
   }
@@ -16,12 +16,9 @@ function response (res) {
 
 function getData () {
  return fetch(`${config.url}`)
-  .then(response)
-  .catch((err) => {
-    error = err;
-  });
+  .then(checkResponse)
 }
 
-let error=null;
 
-export {getData, error}
+
+export {getData}

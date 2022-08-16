@@ -1,6 +1,8 @@
 import React from "react";
 import ingridientDetailsStyle from "./IngridientDetails.module.css";
-import PropTypes from "prop-types";
+
+import { ingredientType } from "../../utils/types";
+
 
 function IngridientDetails({ data }) {
   function Ingridient(data) {
@@ -42,14 +44,10 @@ function IngridientDetails({ data }) {
   );
 }
 
-const ingredientType = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-});
+
 
 IngridientDetails.propTypes = {
-  data: ingredientType
+  data: ingredientType.isRequired
 }
 
 export { IngridientDetails };

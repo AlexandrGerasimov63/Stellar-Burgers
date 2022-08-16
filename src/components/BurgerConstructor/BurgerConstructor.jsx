@@ -8,12 +8,13 @@ import {
 import { data } from "../../utils/data";
 import burgerConstructorStyle from "./BurgerConstuctor.module.css";
 import PropTypes from 'prop-types'
-
+import { ingredientType } from "../../utils/types";
 const dataItemOne = data[0];
 
 
 
 export default function BurgerConstructor(props) {
+  const NewData = props.data
   function ConstructorItem(props) {
     return (
       <li className={`${burgerConstructorStyle.item} pt-4 pr-3`}>
@@ -39,7 +40,7 @@ export default function BurgerConstructor(props) {
           />
         </div>
         <ul className={burgerConstructorStyle.itemList}>
-          {data.map((element) => {
+          {NewData.map((element) => {
             if (element.type === "sauce" || element.type === "main") {
               return (
                 <ConstructorItem
@@ -97,9 +98,6 @@ export default function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  name: PropTypes.string,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  text: PropTypes.string,
-  open: PropTypes.func
+  open: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired
 }

@@ -30,19 +30,3 @@
 .ingridientsList::-webkit-scrollbar-thumb {
   background-color: #8585AD;
 }
-.item {
-  list-style: none;
-  max-width: 272px;
-  width: 100%;
-}
-.itemList {
-  display: flex;
-  padding: 0;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  column-gap: 18px;
-  align-items: center;
-}
-.subtitle {
-  text-align: left;
-}
