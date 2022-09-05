@@ -5,17 +5,45 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrop } from "react-dnd";
+
 import { data } from "../../utils/data";
 import burgerConstructorStyle from "./BurgerConstuctor.module.css";
-import PropTypes from 'prop-types'
-import { ingredientType } from "../../utils/types";
-const dataItemOne = data[0];
-
+// import PropTypes from 'prop-types'
+// import { ingredientType } from "../../utils/types";
+import {ADD_INGRIDIENT,DELETE_INGRIDIENT, ADD_INGRIDIENT_BUN} from "../../services/actions/constructor"
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function BurgerConstructor(props) {
-  const NewData = props.data
+  const ingridientData = useSelector((store)=>store.burgerConstructor.items);
+  const bunData = useSelector(store=>store.burgerConstructor.bun)
+  const dispatch = useDispatch();
+  const onDelelete =(id) => {
+    dispatch({
+      type:DELETE_INGRIDIENT,
+      id
+    })
+  }
+  const [, dropTarget] = useDrop({
+    accept: "ingredients",
+    drop(item) {
+        if(item.data.type==='bun'){
+          dispatch({
+            type: ADD_INGRIDIENT_BUN,
+            data: item.data
+          })
+        } else {
+            dispatch({
+          type: ADD_INGRIDIENT,
+          data: { ...item.data, id: Date.now() },
+        });
+      }
+    },
+  });
+
   function ConstructorItem(props) {
+
     return (
       <li className={`${burgerConstructorStyle.item} pt-4 pr-3`}>
         <DragIcon type="primary" />
@@ -23,46 +51,59 @@ export default function BurgerConstructor(props) {
           text={props.name}
           price={props.price}
           thumbnail={props.image}
+          handleClose={()=> onDelelete(props.item.id)}
         />
       </li>
     );
   }
   const Constructor = () => {
     return (
-      <div className={burgerConstructorStyle.container}>
+      <div className={burgerConstructorStyle.container} ref={dropTarget}>
+        {!bunData ? (
+          <p>перетащите булку</p>
+        ) : (
         <div className={`${burgerConstructorStyle.topElement}`}>
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={dataItemOne.name + "(верх)"}
-            price={dataItemOne.price}
-            thumbnail={dataItemOne.image}
+            text={bunData.name + "(верх)"}
+            price={bunData.price}
+            thumbnail={bunData.image}
           />
         </div>
+        )}
+        {ingridientData.length===0 ? (
+          <p >Выберите ингредиент и перетащите</p>
+        ) : (
         <ul className={burgerConstructorStyle.itemList}>
-          {NewData.map((element) => {
+          {ingridientData.map((element, index) => {
             if (element.type === "sauce" || element.type === "main") {
               return (
                 <ConstructorItem
-                  key={element._id}
+                  key={element.id}
                   name={element.name}
                   price={element.price}
                   image={element.image}
+                  index={index}
+                  item={element}
                 />
               );
             } else {return null}
           })}
 
         </ul>
+        )}
+        {bunData && (
         <div className={`${burgerConstructorStyle.endElement} pt-3`}>
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={dataItemOne.name + "(низ)"}
-            price={dataItemOne.price}
-            thumbnail={dataItemOne.image}
+            text={bunData.name + "(низ)"}
+            price={bunData.price}
+            thumbnail={bunData.image}
           />
         </div>
+        )}
       </div>
     );
   };
@@ -97,7 +138,7 @@ export default function BurgerConstructor(props) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  open: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired
-}
+// BurgerConstructor.propTypes = {
+//   open: PropTypes.func.isRequired,
+//   data: PropTypes.arrayOf(ingredientType.isRequired).isRequired
+// }

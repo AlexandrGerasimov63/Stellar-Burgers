@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import modalStyle from "./Modal.module.css";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 
 const modalRoot = document.querySelector("#modal");
@@ -14,14 +14,12 @@ export default function Modal(props) {
         props.close();
       }
     }
-    if (props.open) {
-      document.addEventListener("keydown", handleEscKeydown);
 
-      return () => {
-        document.removeEventListener("keydown", handleEscKeydown);
-      };
-    }
-  }, [props.open]);
+    document.addEventListener("keydown", handleEscKeydown);
+    return () => {
+      document.removeEventListener("keydown", handleEscKeydown);
+    };
+  }, []);
   return createPortal(
     <>
       <div className={modalStyle.wrapper}>
@@ -35,7 +33,7 @@ export default function Modal(props) {
         </button>
         {props.children}
       </div>
-      <ModalOverlay close={props.close}/>
+      <ModalOverlay close={props.close} />
     </>,
     modalRoot
   );
@@ -45,5 +43,5 @@ Modal.propTypes = {
   close: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   open: PropTypes.func.isRequired,
-  text: PropTypes.string
-}
+  text: PropTypes.string,
+};

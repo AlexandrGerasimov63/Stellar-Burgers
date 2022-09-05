@@ -3,19 +3,20 @@ import {
   Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngridientStyle from "./BurgerIngridienst.module.css";
-import PropTypes from 'prop-types'
-import { ingredientType } from "../../utils/types";
+// import PropTypes from 'prop-types'
+// import { ingredientType } from "../../utils/types";
 import { IngridientsSection } from "./IngridientSection/IngridientsSection";
 import { IngridientsTitle } from "./IngridientsTitle/IngridientsTitle";
 import { CardMap } from "./CardMap/CardMap";
 import { IngredientWrapper } from "./IngridientWrapper/IngridientWrapper";
-
+import { useSelector } from "react-redux";
 
 export default function BurgerIngredients(props) {
-
   const bunRef = React.useRef(null);
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
+  const data = useSelector(store=>store.burgerIngridient.ingridients);
+
 
   function IngredientsTabs(props) {
     const [current, setCurrent] = React.useState("bun");
@@ -53,8 +54,7 @@ export default function BurgerIngredients(props) {
 
 
 
-
-  const getArr = props.data;
+  const getArr = data;
 
   const bunArr = getArr.filter((item) => item.type === "bun");
   const mainArr = getArr.filter((item) => item.type === "main");
@@ -70,21 +70,18 @@ export default function BurgerIngredients(props) {
       <IngredientsTabs tabStyle={`${burgerIngridientStyle.tab} mb-5`} />
       <div className={`${burgerIngridientStyle.ingridientsList}`}>
         <IngredientWrapper text="Булки" tabRef={bunRef}>
-          <CardMap data={bunArr} open={props.open} />
+          <CardMap data={bunArr} />
         </IngredientWrapper>
         <IngredientWrapper text="Соусы" tabRef={sauceRef}>
-          <CardMap data={sauceArr} open={props.open} />
+          <CardMap data={sauceArr} />
         </IngredientWrapper>
         <IngredientWrapper text="Начинки" tabRef={mainRef}>
-          <CardMap data={mainArr} open={props.open} />
+          <CardMap data={mainArr} />
         </IngredientWrapper>
       </div>
     </IngridientsSection>
   );
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  open: PropTypes.func.isRequired
-}
+
 

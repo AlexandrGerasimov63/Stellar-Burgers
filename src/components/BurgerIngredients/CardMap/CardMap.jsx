@@ -4,15 +4,17 @@ import { ingredientType } from "../../../utils/types";
 import cardMapStyle from "./cardMap.module.css"
 import { Card } from "../Card/Card";
 
-function CardMap({ data, open }) {
+
+function CardMap({data}) {
+
+
   return data.map((ingr, index) => {
     return (
       <li
         key={ingr._id}
-        onClick={open}
         className={cardMapStyle.item}
       >
-        <Card image={ingr.image} name={ingr.name} price={ingr.price} />
+        <Card data={ingr} image={ingr.image} name={ingr.name} price={ingr.price} />
       </li>
     );
   });

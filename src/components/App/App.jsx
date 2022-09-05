@@ -1,67 +1,81 @@
 import React, { useEffect, useState } from "react";
-import Header from "../Headers/AppHeader";
+import AppHeader from "../Headers/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import Modal from "../Modal/Modal";
 import { IngridientDetails } from "../IngidientsDetails/IngridientDetails";
 import appStyle from "./App.module.css";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { getData} from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import {getBurgerIngredients} from '../../services/actions/ingridients'
+import {closeIngridientModal} from '../../services/actions/details'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingridientModal, setIngridientModal] = useState(false);
-  const [orderModal, setOrderModal] = useState(false);
 
-  const [data, setData] = useState({
-    isLoading: false,
-    hasError: false,
-    data: [],
-    error: ''
-  });
+  const [orderModal, setOrderModal] = useState(false);
+  const isLoading = useSelector(store=>store.burgerIngridient.isLoading);
+  const hasError = useSelector(store=>store.burgerIngridient.hasError);
+  const error = useSelector(store=>store.burgerIngridient.error)
+  const data = useSelector(store=>store.burgerIngridient.ingridients)
+  const dispatch = useDispatch();
+  // const [data, setData] = useState({
+  //   isLoading: false,
+  //   hasError: false,
+  //   data: [],
+  //   error: ''
+  // });
 
   useEffect(() => {
-    setData({ ...data, hasError: false, isLoading: true, error: "" });
-    getData()
-      .then((res) => {
-        setData({ ...data, data: res.data, isLoading: false, error: "" });
-      })
-      .catch((err) => {
-        setData({ ...data, hasError: true, isLoading: false, error: err });
+    // setData({ ...data, hasError: false, isLoading: true, error: "" });
+    // getData()
+    //   .then((res) => {
+    //     setData({ ...data, data: res.data, isLoading: false, error: "" });
+    //   })
+    //   .catch((err) => {
+    //     setData({ ...data, hasError: true, isLoading: false, error: err });
 
-      });
-  },[]);
+    //   });
+      dispatch(getBurgerIngredients())
+  },[dispatch]);
 
   const closePopup = () => {
-    setIngridientModal(false);
+    // setIngridientModal(false);
     setOrderModal(false);
   };
   const openOrderModal = () => {
     setOrderModal(true);
   };
 
-  const openIngridientModal = () => {
-    setIngridientModal(true)
+  // const openIngridientModal = () => {
+  //   setIngridientModal(true)
+  // }
+
+  const closeDetailsModal = () => {
+    dispatch(closeIngridientModal())
   }
+
+
+
+  const openIngridientModal = useSelector(store=>store.details.openModal)
 
   return (
     <div>
-      <Header />
+      <AppHeader />
       <main className={appStyle.main}>
-        {data.isLoading === true && "Загрузка"}
-        {data.hasError && `Упс, что-то пошло не так, произошла ошибка ${data.error}`}
-        {!data.isLoading && !data.hasError && (
-          <>
-            <BurgerIngredients
-              data={data.data}
-              open={() => openIngridientModal()}
-            />
-            <BurgerConstructor open={openOrderModal} data={data.data}/>
-          </>
+        {isLoading === true && "Загрузка"}
+        {hasError && `Упс, что-то пошло не так, произошла ошибка ${error}`}
+        {!isLoading && !hasError && (
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients/>
+            <BurgerConstructor open={openOrderModal}/>
+          </DndProvider>
         )}
       </main>
-      {ingridientModal && (
-        <Modal open={openIngridientModal} text="Детали ингредиента" close={closePopup}>
-          <IngridientDetails data={data.data[0]} />
+      {openIngridientModal && (
+        <Modal  text="Детали ингредиента" close={closeDetailsModal}>
+          <IngridientDetails data={openIngridientModal} />
         </Modal>
       )}
       {orderModal && (
