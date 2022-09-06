@@ -28,7 +28,9 @@ export const getOrderNumber = async (productsId) => {
     body: JSON.stringify({
       ingredients: productsId,
     }),
-    headers: config.headers
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   return checkResponse(res);
 };

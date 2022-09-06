@@ -11,15 +11,17 @@ import {getBurgerIngredients} from '../../services/actions/ingridients'
 import {closeIngridientModal} from '../../services/actions/details'
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import {closeOrderModal} from '../../services/actions/order'
+
 
 function App() {
 
-  const [orderModal, setOrderModal] = useState(false);
   const isLoading = useSelector(store=>store.burgerIngridient.isLoading);
   const hasError = useSelector(store=>store.burgerIngridient.hasError);
   const error = useSelector(store=>store.burgerIngridient.error)
   const data = useSelector(store=>store.burgerIngridient.ingridients)
   const dispatch = useDispatch();
+  const orderModalOpen = useSelector(store=>store.order.modal)
   // const [data, setData] = useState({
   //   isLoading: false,
   //   hasError: false,
@@ -40,13 +42,7 @@ function App() {
       dispatch(getBurgerIngredients())
   },[dispatch]);
 
-  const closePopup = () => {
-    // setIngridientModal(false);
-    setOrderModal(false);
-  };
-  const openOrderModal = () => {
-    setOrderModal(true);
-  };
+
 
   // const openIngridientModal = () => {
   //   setIngridientModal(true)
@@ -54,6 +50,10 @@ function App() {
 
   const closeDetailsModal = () => {
     dispatch(closeIngridientModal())
+  }
+
+  const getCloseOrderModal = () => {
+    dispatch(closeOrderModal())
   }
 
 
@@ -69,7 +69,7 @@ function App() {
         {!isLoading && !hasError && (
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients/>
-            <BurgerConstructor open={openOrderModal}/>
+            <BurgerConstructor />
           </DndProvider>
         )}
       </main>
@@ -78,8 +78,8 @@ function App() {
           <IngridientDetails data={openIngridientModal} />
         </Modal>
       )}
-      {orderModal && (
-        <Modal open={openOrderModal} close={closePopup}>
+      {orderModalOpen && (
+        <Modal  close={getCloseOrderModal}>
           <OrderDetails />
         </Modal>
       )}

@@ -9,8 +9,13 @@ function OrderDetails() {
   const isLoading = useSelector(store=>store.order.isLoading);
   const hasError = useSelector(store=>store.order.hasError);
   const error = useSelector(store=>store.order.error)
-  const dispatch = useDispatch();
-  useEffect(()=>{dispatch(getOrderDetails(123))},[])
+  const ingridients =useSelector((store)=>store.burgerConstructor.items);
+  const idIngridients = ingridients.map((items)=>items._id)
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   console.log(idIngridients)
+  //   dispatch(getOrderDetails(idIngridients))},[dispatch])
+
   return (
     <div className={`${orderDetailsStyle.wrapper}  pr-25 pl-25`}>
       <p

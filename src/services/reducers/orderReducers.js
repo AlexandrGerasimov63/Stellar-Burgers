@@ -1,11 +1,12 @@
-import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED, CLOSE_ORDER_MODAL} from '../actions/order'
+import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED, CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from '../actions/order'
 
 const orderInitialState = {
   orderNumber: null,
   orderFailed: false,
   isLoading: false,
   hasError: false,
-  error:''
+  error:'',
+  modal: null
 }
 
 export const orderReducer = (state=orderInitialState,action) => {
@@ -35,10 +36,16 @@ export const orderReducer = (state=orderInitialState,action) => {
         hasError: true,
         error: action.error,
       }
+    case OPEN_ORDER_MODAL:
+      return{
+        ...state,
+        modal: true
+      }
     case CLOSE_ORDER_MODAL:
       return{
         ...state,
-        orderNumber: null
+        orderNumber: null,
+        modal: false
       }
     default: {
       return state
