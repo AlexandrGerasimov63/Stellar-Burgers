@@ -125,13 +125,7 @@ export default function BurgerConstructor(props) {
       </div>
     );
   };
-  const ButtomLarge = (props) => {
-    return (
-      <Button type="primary" size="large" onClick={openModal}>
-        {props.text}
-      </Button>
-    );
-  };
+
   const FullPrice = (props) => {
     return (
       <div className={`${burgerConstructorStyle.fullPrice} pr-2`}>
@@ -145,8 +139,12 @@ export default function BurgerConstructor(props) {
     <section className={`${burgerConstructorStyle.wrapper} ml-10`}>
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
-        <FullPrice price={Number(24568)} />
-        <ButtomLarge text={"Оформить заказ"} />
+        <FullPrice />
+        {!ingridientData.length ? ( <Button type="primary" size="large" onClick={openModal} disabled>
+        "Оформить заказ"
+      </Button>) : (<Button type="primary" size="large" onClick={openModal}>
+        "Оформить заказ"
+      </Button>)}
       </div>
     </section>
   );
