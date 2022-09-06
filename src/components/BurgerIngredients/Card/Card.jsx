@@ -2,12 +2,23 @@ import React from "react";
 import PropTypes from 'prop-types'
 import cardStyle from './Card.module.css'
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {openIngridientModal} from '../../../services/actions/details'
 import { useDrag } from "react-dnd/dist/hooks";
 
 function Card(props) {
   const { image, name, price, data } = props;
+  const dataIngridient = useSelector(store=>store.burgerConstructor.items);
+  const bunIngridient = useSelector(store=>store.burgerConstructor.bun)
+  const count = (count = 0) => {
+    for (let { _id } of dataIngridient)
+
+    if (_id === data._id) count++;
+    if (data.type === 'bun' && (bunIngridient._id === data._id)) count++;
+
+    return count;
+  }
+
 
   const dispacth = useDispatch()
   const openDetailsModal = (data) => {
@@ -39,7 +50,7 @@ function Card(props) {
       >
         {name}
       </p>
-      <Counter count={1} size="default" />
+      {count()>0 && <Counter count={count()} size="default" />}
     </div>
   );
 }

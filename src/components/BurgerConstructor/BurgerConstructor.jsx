@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
+
 
 import burgerConstructorStyle from "./BurgerConstuctor.module.css";
 // import PropTypes from 'prop-types'
@@ -14,6 +15,7 @@ import {
   ADD_INGRIDIENT,
   DELETE_INGRIDIENT,
   ADD_INGRIDIENT_BUN,
+  MOVE_INGRIDIENT
 } from "../../services/actions/constructor";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, openOrderModal } from "../../services/actions/order";
@@ -70,9 +72,47 @@ export default function BurgerConstructor(props) {
     },
   });
 
+  const ref = useRef(null);
+
+
+
+
   function ConstructorItem(props) {
+    // Перемещение эт-та внутри конструктора
+    const { id } = props.item;
+    // console.log(id)
+    const index = props.index;
+    // console.log(index)
+    // console.log(props.item)
+    const [{ opacity }, drag] = useDrag({
+      type: "item",
+      item: { id, index },
+      collect: (monitor) => {
+        return {
+          opacity: monitor.isDragging() ? 0.5 : 1,
+        };
+      },
+    });
+
+    const [, drop] = useDrop({
+      accept: "item",
+      hover(items) {
+        if (!ref.current) {
+          return;
+        }
+        const dragIndex = props.index;
+        const hoverIndex = index;
+        dispatch({
+          type: MOVE_INGRIDIENT,
+          data: { dragIndex, hoverIndex },
+        });
+        items.index = hoverIndex;
+      },
+    });
+
+    drag(drop(ref));
     return (
-      <li className={`${burgerConstructorStyle.item} pt-4 pr-3`}>
+      <li className={`${burgerConstructorStyle.item} pt-4 pr-3`} style={{opacity}} ref={ref}>
         <DragIcon type="primary" />
         <ConstructorElement
           text={props.name}
@@ -105,6 +145,7 @@ export default function BurgerConstructor(props) {
           <ul className={burgerConstructorStyle.itemList}>
             {ingridientData.map((element, index) => {
               if (element.type === "sauce" || element.type === "main") {
+                // console.log(index)
                 return (
                   <ConstructorItem
                     key={element.id}
