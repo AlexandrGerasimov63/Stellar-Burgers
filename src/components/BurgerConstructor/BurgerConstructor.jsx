@@ -140,7 +140,7 @@ export default function BurgerConstructor(props) {
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
         <FullPrice />
-        {!ingridientData.length ? ( <Button type="primary" size="large" onClick={openModal} disabled>
+        {ingridientData.length===0 ? ( <Button type="primary" size="large" onClick={openModal} disabled>
         "Оформить заказ"
       </Button>) : (<Button type="primary" size="large" onClick={openModal}>
         "Оформить заказ"
