@@ -19,10 +19,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, openOrderModal } from "../../services/actions/order";
 
 export default function BurgerConstructor(props) {
+  // Получение констан из стора
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
+
+  // Получени id для отправки на сервер
   const ingridientsID = ingridientData.map((item) => item._id);
   const productID = [...ingridientsID, bunData._id];
+
+  // Подсчет общей стоимости заказа
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const price = ingridientData.reduce(
@@ -32,17 +37,22 @@ export default function BurgerConstructor(props) {
     setTotal(price);
   }, [bunData, ingridientData]);
 
+  // Открытие модалки заказа и получение номера заказа
   const dispatch = useDispatch();
   const openModal = () => {
     dispatch(getOrderDetails(productID));
     dispatch(openOrderModal());
   };
+
+  // Удаление игридиента из списка
   const onDelelete = (id) => {
     dispatch({
       type: DELETE_INGRIDIENT,
       id,
     });
   };
+
+  // Днд секция дропа
   const [, dropTarget] = useDrop({
     accept: "ingredients",
     drop(item) {
@@ -140,11 +150,15 @@ export default function BurgerConstructor(props) {
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
         <FullPrice />
-        {ingridientData.length===0 ? ( <Button type="primary" size="large" onClick={openModal} disabled>
-        "Оформить заказ"
-      </Button>) : (<Button type="primary" size="large" onClick={openModal}>
-        "Оформить заказ"
-      </Button>)}
+        {ingridientData.length === 0 ? (
+          <Button type="primary" size="large" onClick={openModal} disabled>
+            "Оформить заказ"
+          </Button>
+        ) : (
+          <Button type="primary" size="large" onClick={openModal}>
+            "Оформить заказ"
+          </Button>
+        )}
       </div>
     </section>
   );

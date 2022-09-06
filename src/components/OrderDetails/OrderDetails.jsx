@@ -1,20 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import orderDetailsStyle from "./OrderDetails.module.css";
 import doneImg from "../../images/done.svg"
-import { useDispatch, useSelector } from "react-redux";
-import {getOrderDetails} from '../../services/actions/order'
+import { useSelector } from "react-redux";
 
 function OrderDetails() {
   const OrderNumber = useSelector(store=>store.order.orderNumber);
   const isLoading = useSelector(store=>store.order.isLoading);
   const hasError = useSelector(store=>store.order.hasError);
   const error = useSelector(store=>store.order.error)
-  const ingridients =useSelector((store)=>store.burgerConstructor.items);
-  const idIngridients = ingridients.map((items)=>items._id)
-  // const dispatch = useDispatch();
-  // useEffect(()=>{
-  //   console.log(idIngridients)
-  //   dispatch(getOrderDetails(idIngridients))},[dispatch])
+
+
 
   return (
     <div className={`${orderDetailsStyle.wrapper}  pr-25 pl-25`}>
