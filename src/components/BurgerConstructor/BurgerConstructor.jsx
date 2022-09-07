@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   ConstructorElement,
   Button,
@@ -23,20 +23,16 @@ export default function BurgerConstructor(props) {
   // Получение констан из стора
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
-
   // Получени id для отправки на сервер
   const ingridientsID = ingridientData.map((item) => item._id);
   const productID = [...ingridientsID, bunData._id];
 
-  // Подсчет общей стоимости заказа
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
+  //Подсчитываем сумму
     const price = ingridientData.reduce(
       (sum, item) => sum + item.price,
       !bunData ? 0 : bunData.price * 2
     );
-    setTotal(price);
-  }, [bunData, ingridientData]);
+
 
   // Открытие модалки заказа и получение номера заказа
   const dispatch = useDispatch();
@@ -77,6 +73,7 @@ export default function BurgerConstructor(props) {
     const ref = useRef(null);
     const { id } = props.item;
     const index = props.index;
+
     const [{ opacity }, drag] = useDrag({
       type: "item",
       item: { index, id },
@@ -89,13 +86,14 @@ export default function BurgerConstructor(props) {
 
     const [, drop] = useDrop({
       accept: "item",
-      hover(items) {
+      drop(items) {
         if (!ref.current) {
           return;
         }
         const dragIndex = items.index;
         const hoverIndex = index;
-
+        console.log(`Это драг в конструкторе ${dragIndex}`)
+        console.log(`Это ховер в конструкторе ${hoverIndex}`)
         dispatch({
           type: MOVE_INGRIDIENT,
           data: { dragIndex, hoverIndex },
@@ -125,7 +123,7 @@ export default function BurgerConstructor(props) {
     return (
       <div className={burgerConstructorStyle.container} ref={dropTarget}>
         {!bunData ? (
-          <p>перетащите булку</p>
+          <p className={`${burgerConstructorStyle.title} text text_type_main-large`}>Перетащите булку</p>
         ) : (
           <div className={`${burgerConstructorStyle.topElement}`}>
             <ConstructorElement
@@ -138,7 +136,7 @@ export default function BurgerConstructor(props) {
           </div>
         )}
         {ingridientData.length === 0 ? (
-          <p>Выберите ингредиент и перетащите</p>
+          <p className={`${burgerConstructorStyle.title} text text_type_main-large`}>Выберите ингредиент и перетащите</p>
         ) : (
           <ul className={burgerConstructorStyle.itemList}>
             {ingridientData.map((element, index) => {
@@ -177,7 +175,7 @@ export default function BurgerConstructor(props) {
   const FullPrice = (props) => {
     return (
       <div className={`${burgerConstructorStyle.fullPrice} pr-2`}>
-        <p className="text text_type_digits-medium pr-2 pl-2">{total}</p>
+        <p className="text text_type_digits-medium pr-2 pl-2">{price}</p>
         <CurrencyIcon />
       </div>
     );
@@ -188,7 +186,7 @@ export default function BurgerConstructor(props) {
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
         <FullPrice />
-        {ingridientData.length === 0 ? (
+        {(ingridientData.length === 0 || !bunData) ? (
           <Button type="primary" size="large" onClick={openModal} disabled>
             "Оформить заказ"
           </Button>
