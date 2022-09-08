@@ -176,7 +176,6 @@ export default function BurgerConstructor() {
       </div>
     );
   };
-
   const FullPrice = (props) => {
     return (
       <div className={`${burgerConstructorStyle.fullPrice} pr-2`}>
@@ -185,7 +184,6 @@ export default function BurgerConstructor() {
       </div>
     );
   };
-
   return (
     <section className={`${burgerConstructorStyle.wrapper} ml-10`}>
       <Constructor />
