@@ -8,6 +8,7 @@ function IngredientWrapper(props) {
       <h2
         ref={props.tabRef}
         className={`${ingridientWrapperStyle.subtitle} text text_type_main-medium pb-2 pt-5`}
+        id={props.type}
       >
         {props.text}
       </h2>

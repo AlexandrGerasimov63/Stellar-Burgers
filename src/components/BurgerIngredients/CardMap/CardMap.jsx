@@ -22,7 +22,6 @@ function CardMap({data}) {
 
 CardMap.propTypes = {
   data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  open: PropTypes.func.isRequired
 }
 
 

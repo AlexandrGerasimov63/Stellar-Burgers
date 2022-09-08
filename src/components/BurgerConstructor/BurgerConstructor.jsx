@@ -8,8 +8,7 @@ import {
 import { useDrag, useDrop } from "react-dnd";
 
 import burgerConstructorStyle from "./BurgerConstuctor.module.css";
-// import PropTypes from 'prop-types'
-// import { ingredientType } from "../../utils/types";
+
 import {
   ADD_INGRIDIENT,
   DELETE_INGRIDIENT,
@@ -19,13 +18,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, openOrderModal } from "../../services/actions/order";
 
-export default function BurgerConstructor(props) {
+export default function BurgerConstructor() {
   // Получение констан из стора
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
   // Получени id для отправки на сервер
-  const ingridientsID = ingridientData.map((item) => item._id);
-  const productID = [...ingridientsID, bunData._id];
+  const ingridientsId = ingridientData.map((item) => item._id);
+  const productID = [...ingridientsId, bunData._id];
 
   //Подсчитываем сумму
     const price = ingridientData.reduce(
@@ -200,7 +199,4 @@ export default function BurgerConstructor(props) {
   );
 }
 
-// BurgerConstructor.propTypes = {
-//   open: PropTypes.func.isRequired,
-//   data: PropTypes.arrayOf(ingredientType.isRequired).isRequired
-// }
+
