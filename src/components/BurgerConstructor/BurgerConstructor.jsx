@@ -27,11 +27,10 @@ export default function BurgerConstructor() {
   const productID = [...ingridientsId, bunData._id];
 
   //Подсчитываем сумму
-    const price = ingridientData.reduce(
-      (sum, item) => sum + item.price,
-      !bunData ? 0 : bunData.price * 2
-    );
-
+  const price = ingridientData.reduce(
+    (sum, item) => sum + item.price,
+    !bunData ? 0 : bunData.price * 2
+  );
 
   // Открытие модалки заказа и получение номера заказа
   const dispatch = useDispatch();
@@ -91,8 +90,7 @@ export default function BurgerConstructor() {
         }
         const dragIndex = items.index;
         const hoverIndex = index;
-        console.log(`Это драг в конструкторе ${dragIndex}`)
-        console.log(`Это ховер в конструкторе ${hoverIndex}`)
+
         dispatch({
           type: MOVE_INGRIDIENT,
           data: { dragIndex, hoverIndex },
@@ -122,7 +120,11 @@ export default function BurgerConstructor() {
     return (
       <div className={burgerConstructorStyle.container} ref={dropTarget}>
         {!bunData ? (
-          <p className={`${burgerConstructorStyle.title} text text_type_main-large`}>Перетащите булку</p>
+          <p
+            className={`${burgerConstructorStyle.title} text text_type_main-large`}
+          >
+            Перетащите булку
+          </p>
         ) : (
           <div className={`${burgerConstructorStyle.topElement}`}>
             <ConstructorElement
@@ -135,7 +137,11 @@ export default function BurgerConstructor() {
           </div>
         )}
         {ingridientData.length === 0 ? (
-          <p className={`${burgerConstructorStyle.title} text text_type_main-large`}>Выберите ингредиент и перетащите</p>
+          <p
+            className={`${burgerConstructorStyle.title} text text_type_main-large`}
+          >
+            Выберите ингредиент и перетащите
+          </p>
         ) : (
           <ul className={burgerConstructorStyle.itemList}>
             {ingridientData.map((element, index) => {
@@ -185,7 +191,7 @@ export default function BurgerConstructor() {
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
         <FullPrice />
-        {(ingridientData.length === 0 || !bunData) ? (
+        {ingridientData.length === 0 || !bunData ? (
           <Button type="primary" size="large" onClick={openModal} disabled>
             "Оформить заказ"
           </Button>
@@ -198,5 +204,3 @@ export default function BurgerConstructor() {
     </section>
   );
 }
-
-

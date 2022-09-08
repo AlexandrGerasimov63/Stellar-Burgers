@@ -5,7 +5,6 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import { useDispatch, useSelector} from "react-redux";
 import {openIngridientModal} from '../../../services/actions/details'
 import { useDrag } from "react-dnd/dist/hooks";
-import { ingredientType } from "../../../utils/types";
 
 function Card(props) {
   const { image, name, price, data } = props;
