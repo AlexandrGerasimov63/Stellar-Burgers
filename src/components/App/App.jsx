@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, [dispatch]);
+  }, []);
 
   const closeDetailsModal = useCallback(() => {
     dispatch(closeIngridientModal());
