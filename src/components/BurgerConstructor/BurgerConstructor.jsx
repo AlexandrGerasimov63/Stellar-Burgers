@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useCallback } from "react";
 import {
   ConstructorElement,
   Button,
@@ -23,8 +23,8 @@ export default function BurgerConstructor() {
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
   // Получени id для отправки на сервер
-  const ingridientsId = ingridientData.map((item) => item._id);
-  const productID = [...ingridientsId, bunData._id];
+  const ingridientsId = useMemo(()=>ingridientData.map((item) => item._id),[ingridientData]);
+  const productID = useMemo(()=>[...ingridientsId, bunData._id],[ingridientsId,bunData]);
 
   //Подсчитываем сумму
   const price = ingridientData.reduce(
@@ -34,18 +34,18 @@ export default function BurgerConstructor() {
 
   // Открытие модалки заказа и получение номера заказа
   const dispatch = useDispatch();
-  const openModal = () => {
+  const openModal = useCallback(() => {
     dispatch(getOrderDetails(productID));
     dispatch(openOrderModal());
-  };
+  },[dispatch]);
 
   // Удаление игридиента из списка
-  const onDelelete = (id) => {
+  const onDelete = useCallback((id) => {
     dispatch({
       type: DELETE_INGRIDIENT,
       id,
     });
-  };
+  },[dispatch]);
 
   // Днд секция дропа
   const [, dropTarget] = useDrop({
@@ -111,7 +111,7 @@ export default function BurgerConstructor() {
           text={props.name}
           price={props.price}
           thumbnail={props.image}
-          handleClose={() => onDelelete(props.item.id)}
+          handleClose={() => onDelete(props.item.id)}
         />
       </li>
     );
@@ -176,7 +176,7 @@ export default function BurgerConstructor() {
       </div>
     );
   };
-  const FullPrice = (props) => {
+  const FullPrice = () => {
     return (
       <div className={`${burgerConstructorStyle.fullPrice} pr-2`}>
         <p className="text text_type_digits-medium pr-2 pl-2">{price}</p>

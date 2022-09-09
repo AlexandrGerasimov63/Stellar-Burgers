@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngridientStyle from "./BurgerIngridienst.module.css";
 // import PropTypes from 'prop-types'
@@ -82,9 +82,9 @@ export default function BurgerIngredients() {
 
 
 
-  const bunArr = getArr.filter((item) => item.type === "bun");
-  const mainArr = getArr.filter((item) => item.type === "main");
-  const sauceArr = getArr.filter((item) => item.type === "sauce");
+  const bunArr =useMemo(()=>getArr.filter((item) => item.type === "bun"),[getArr]);
+  const mainArr = useMemo(()=>getArr.filter((item) => item.type === "main"),[getArr]);
+  const sauceArr = useMemo(()=>getArr.filter((item) => item.type === "sauce"),[getArr]);
 
   return (
     <IngridientsSection sectionStyle={`${burgerIngridientStyle.section} mt-10`}>

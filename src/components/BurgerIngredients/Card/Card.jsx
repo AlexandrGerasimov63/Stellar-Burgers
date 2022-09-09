@@ -9,7 +9,8 @@ import { useDrag } from "react-dnd/dist/hooks";
 function Card(props) {
   const { image, name, price, data } = props;
   const dataIngridient = useSelector(store=>store.burgerConstructor.items);
-  const bunIngridient = useSelector(store=>store.burgerConstructor.bun)
+  const bunIngridient = useSelector(store=>store.burgerConstructor.bun);
+
   const count = (count = 0) => {
     for (let { _id } of dataIngridient)
 
@@ -20,9 +21,9 @@ function Card(props) {
   }
 
 
-  const dispacth = useDispatch()
+  const dispatch  = useDispatch()
   const openDetailsModal = (data) => {
-    dispacth(openIngridientModal(data))
+    dispatch (openIngridientModal(data))
   }
 
   const [{ opacity }, dragRef] = useDrag({
@@ -55,10 +56,13 @@ function Card(props) {
   );
 }
 
+
 Card.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  data: PropTypes.object.isRequired
+
 }
 
 

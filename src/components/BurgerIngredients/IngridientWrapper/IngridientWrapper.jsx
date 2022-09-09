@@ -22,6 +22,8 @@ function IngredientWrapper(props) {
 IngredientWrapper.propTypes = {
   text: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  type: PropTypes.string.isRequired,
+  tabRef: PropTypes.func.isRequired
 }
 
 export {IngredientWrapper}

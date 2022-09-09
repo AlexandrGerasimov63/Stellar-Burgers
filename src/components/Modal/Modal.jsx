@@ -19,7 +19,7 @@ export default function Modal(props) {
     return () => {
       document.removeEventListener("keydown", handleEscKeydown);
     };
-  }, []);
+  }, [props]);
   return createPortal(
     <>
       <div className={modalStyle.wrapper}>

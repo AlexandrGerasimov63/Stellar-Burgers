@@ -4,7 +4,7 @@ import doneImg from "../../images/done.svg"
 import { useSelector } from "react-redux";
 
 function OrderDetails() {
-  const OrderNumber = useSelector(store=>store.order.orderNumber);
+  const orderNumber = useSelector(store=>store.order.orderNumber);
   const isLoading = useSelector(store=>store.order.isLoading);
   const hasError = useSelector(store=>store.order.hasError);
   const error = useSelector(store=>store.order.error)
@@ -18,7 +18,7 @@ function OrderDetails() {
       >
         {isLoading && `Загрузка...`}
         {hasError && `${error}`}
-        {!isLoading && !hasError && OrderNumber}
+        {!isLoading && !hasError && orderNumber}
       </p>
       <p
         className={`${orderDetailsStyle.text} text text_type_main-medium pb-15`}

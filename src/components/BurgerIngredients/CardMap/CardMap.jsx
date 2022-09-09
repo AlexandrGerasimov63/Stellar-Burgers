@@ -8,7 +8,7 @@ import { Card } from "../Card/Card";
 function CardMap({data}) {
 
 
-  return data.map((ingr, index) => {
+  return data.map((ingr) => {
     return (
       <li
         key={ingr._id}

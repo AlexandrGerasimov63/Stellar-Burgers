@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import AppHeader from "../Headers/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -24,13 +24,13 @@ function App() {
     dispatch(getBurgerIngredients());
   }, [dispatch]);
 
-  const closeDetailsModal = () => {
+  const closeDetailsModal = useCallback(() => {
     dispatch(closeIngridientModal());
-  };
+  },[dispatch]);
 
-  const getCloseOrderModal = () => {
+  const getCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
-  };
+  },[dispatch]);
 
   const openIngridientModal = useSelector((store) => store.details.openModal);
 
@@ -38,7 +38,7 @@ function App() {
     <div>
       <AppHeader />
       <main className={appStyle.main}>
-        {isLoading === true && "Загрузка"}
+        {isLoading && "Загрузка"}
         {hasError && `Упс, что-то пошло не так, произошла ошибка ${error}`}
         {!isLoading && !hasError && (
           <DndProvider backend={HTML5Backend}>

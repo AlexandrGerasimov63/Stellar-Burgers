@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyle from "./AppHeader.module.css";
 
-export default function Appheader(props) {
+export default function Appheader() {
   function Header(props) {
     return <header className={`${headerStyle.header}`}>{props.children}</header>;
   }

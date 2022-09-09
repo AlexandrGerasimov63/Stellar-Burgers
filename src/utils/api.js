@@ -1,7 +1,7 @@
 const config = {
   url: 'https://norma.nomoreparties.space/api',
   headers: {
-    "Content-Type": "application.json",
+    "Content-Type": "application/json",
   },
 }
 
@@ -15,10 +15,7 @@ function checkResponse (res) {
 
 
 export const getIngredientsData = async () => {
-  const res = await fetch(`${config.url}/ingredients`, {
-    method: "GET",
-    headers: config.headers,
-  });
+  const res = await fetch(`${config.url}/ingredients`);
   return checkResponse(res);
 };
 
@@ -28,9 +25,7 @@ export const getOrderNumber = async (productsId) => {
     body: JSON.stringify({
       ingredients: productsId,
     }),
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: config.headers
   });
   return checkResponse(res);
 };
