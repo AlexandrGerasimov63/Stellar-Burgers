@@ -11,10 +11,12 @@ export function getBurgerIngredients() {
     });
     getIngredientsData()
       .then((res) => {
-        dispatch({
-          type: GET_INGRIDIENTS_SUCCESS,
-          ingredients: res.data,
-        });
+        if (res.success === true) {
+          dispatch({
+            type: GET_INGRIDIENTS_SUCCESS,
+            ingredients: res.data,
+          });
+        }
       })
       .catch((err) => {
         dispatch({

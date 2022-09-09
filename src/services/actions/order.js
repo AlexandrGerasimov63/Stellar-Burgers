@@ -26,10 +26,12 @@ export const getOrderDetails = (order) => {
 		});
 		getOrderNumber(order)
 			.then((res) => {
+        if(res.success === true) {
 				dispatch({
 					type: GET_ORDER_SUCCESS,
 					number: res.order.number
 				});
+        }
 			})
 			.catch((err) => {
 				dispatch({

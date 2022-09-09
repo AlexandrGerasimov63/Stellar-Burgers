@@ -27,6 +27,7 @@ export const getOrderNumber = async (productsId) => {
     }),
     headers: config.headers,
   });
+
   return checkResponse(res);
 };
 
