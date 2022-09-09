@@ -23,8 +23,8 @@ export default function BurgerConstructor() {
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
   // Получени id для отправки на сервер
-  const ingridientsId = useMemo(()=>ingridientData.map((item) => item._id),[ingridientData]);
-  const productID = useMemo(()=>[...ingridientsId, bunData._id],[ingridientsId,bunData]);
+  const ingridientsId = ingridientData.map((item) => item._id);
+  const productID = [...ingridientsId, bunData._id];
 
   //Подсчитываем сумму
   const price = ingridientData.reduce(
@@ -34,10 +34,10 @@ export default function BurgerConstructor() {
 
   // Открытие модалки заказа и получение номера заказа
   const dispatch = useDispatch();
-  const openModal = useCallback(() => {
+  const openModal = () =>{
     dispatch(getOrderDetails(productID));
     dispatch(openOrderModal());
-  },[dispatch]);
+  }
 
   // Удаление игридиента из списка
   const onDelete = useCallback((id) => {
