@@ -1,34 +1,37 @@
 import React from "react";
 import LoginStyle from "./Login.module.css";
 import {
-  Input,
   Button,
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLoginValue, login } from "../../services/actions/user";
 
 
 
 export default function Login() {
+  const dispatch = useDispatch()
+  const email = useSelector((store)=>store.auth.email)
+  const pass = useSelector((store)=>store.auth.password)
+  const err = useSelector((store)=>store.auth.error)
+  const hasError = useSelector((store)=>store.auth.hasError)
 
-  const [email, setEmail] = React.useState('')
-
-  const onChangeEmail = e => {
-    setEmail(e.target.value)
-
-    console.log(value.email)
+  function inputUser(evt) {
+    dispatch(setLoginValue(evt.target.name, evt.target.value));
   }
-  const [value, setValue] = React.useState('')
-  const onChange = e => {
-    setValue(e.target.value)
-    console.log(value.value)
+
+  function submitForm(evt) {
+
+    evt.preventDefault();
+    dispatch(login( email, pass));
   }
+
+
   return (
     <section className={LoginStyle.wrapper}>
-      <form className={LoginStyle.form}>
+      <form className={LoginStyle.form} onSubmit={submitForm}>
         <p className="text text_type_main-medium">Вход</p>
         <div className="mt-6">
           <EmailInput
@@ -36,22 +39,23 @@ export default function Login() {
 
           name="email"
           value={email}
-          onChange={onChangeEmail}/>
+          onChange={inputUser}/>
         </div>
         <div className="mt-6">
           <PasswordInput
 
-            onChange={onChange}
-            value={value}
+            onChange={inputUser}
+            value={pass}
             name={'password'}
             extraClass="mb-2"/>
         </div>
 
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium">
+          <Button htmlType="button" type="primary" size="medium" onClick={submitForm}>
             Войти
           </Button>
         </div>
+        {hasError && <p>{`${err}`}</p>}
         <p className="text text_type_main-default text_color_inactive mt-20">
           Вы новый пользователь?
           <Link to='/register'>
