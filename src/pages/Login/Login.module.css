@@ -1,0 +1,14 @@
+.wrapper {
+    height: 85vh;
+    width: 100vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 180px;
+    width: 480px;
+  }

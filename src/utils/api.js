@@ -3,8 +3,14 @@ const config = {
   headers: {
     "Content-Type": "application/json",
   },
+  endPointAuth: 'https://norma.nomoreparties.space/api/auth'
 }
-
+// const endPoint = {
+//   auth: 'https://norma.nomoreparties.space/api/auth/login',
+//   register : 'https://norma.nomoreparties.space/api/auth/register',
+//   logout : 'https://norma.nomoreparties.space/api/auth/logout',
+//   refreshToken : 'https://norma.nomoreparties.space/api/auth/token'
+// }
 
 function checkResponse (res) {
   if (res.ok) {
@@ -32,3 +38,28 @@ export const getOrderNumber = async (productsId) => {
 };
 
 
+export const getLoginRecuest = async (email, password) => {
+  const res = await fetch (`${config.endPointAuth}/login`,{
+    method: "POST",
+    body: JSON.stringify({
+      email: email,
+      password: password
+    }),
+    headers: config.headers,
+  });
+  return checkResponse(res);
+}
+
+export const getRegistrationRecuest =async (name, email,password) => {
+  const res = await fetch(`${config.endPointAuth}/register`,{
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
+    }),
+    headers: config.headers,
+  });
+    return checkResponse(res);
+
+}

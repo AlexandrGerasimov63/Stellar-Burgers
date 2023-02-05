@@ -12,6 +12,12 @@ import { closeIngridientModal } from "../../services/actions/details";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { closeOrderModal } from "../../services/actions/order";
+import Register from "../../pages/Register/Register";
+import Forgot from "../../pages/Forgot/Forgot";
+import Reset from '../../pages/Reset/Reset'
+import Login from "../../pages/Login/Login";
+import { Route, Switch } from "react-router-dom";
+import Profile from "../../pages/Profile/Profile";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -37,6 +43,8 @@ function App() {
   return (
     <div>
       <AppHeader />
+      <Switch>
+        <Route path='/' exact>
       <main className={appStyle.main}>
         {isLoading && "Загрузка"}
         {hasError && `Упс, что-то пошло не так, произошла ошибка ${error}`}
@@ -57,6 +65,23 @@ function App() {
           <OrderDetails />
         </Modal>
       )}
+        </Route>
+        <Route path="/register" exact>
+          <Register />
+        </Route>
+        <Route path="/forgot" exact>
+          <Forgot />
+        </Route>
+        <Route path="/reset" exact>
+          <Reset />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
+        </Route>
+        <Route path="/profile" exact>
+          <Profile/>
+        </Route>
+      </Switch>
     </div>
   );
 }
