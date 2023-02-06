@@ -51,7 +51,7 @@ export default function Login() {
         </div>
 
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium" onClick={submitForm}>
+          <Button htmlType="button" type="primary" size="medium" onClick={submitForm} disabled={!email || !pass}>
             Войти
           </Button>
         </div>

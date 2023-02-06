@@ -8,16 +8,21 @@ const config = {
   endPointAuth: 'https://norma.nomoreparties.space/api/auth'
 }
 // const endPoint = {
-//   auth: 'https://norma.nomoreparties.space/api/auth/login',
-//   register : 'https://norma.nomoreparties.space/api/auth/register',
+//
+//
 //   logout : 'https://norma.nomoreparties.space/api/auth/logout',
 //   refreshToken : 'https://norma.nomoreparties.space/api/auth/token'
 // }
 
 function checkResponse (res) {
+
   if (res.ok) {
+
     return res.json();
   }
+  // if(!res.ok){
+  //   return res.json();
+  // }
   return Promise.reject(new Error(`${res.status}`));
 };
 

@@ -4,7 +4,7 @@ import {REGISTER_SENDING_FAILED} from "../actions/user"
 import {LOGIN_FORM_VALUE} from '../actions/user'
 import { LOGIN_FORM_REQUEST } from "../actions/user"
 import { LOGIN_FORM_FAILED } from "../actions/user"
-
+import { setCookie } from "../../utils/cookie"
 const userInitialState = {
 
   hasError: false,
@@ -12,6 +12,10 @@ const userInitialState = {
   email: '',
   password: '',
   error: '',
+  userName: '',
+  userEmail: '',
+  userPassword: '',
+  isLogin: false
 }
 
 export const authReducer = (state= userInitialState, action) => {
@@ -46,10 +50,20 @@ export const authReducer = (state= userInitialState, action) => {
         [action.field]: action.value
       }
     case LOGIN_FORM_REQUEST:
+      const accessToken = action.data.accessToken.split("Bearer ")[1];
+      const refreshToken = action.data.refreshToken;
+      setCookie("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
       return{
         ...state,
         email: '',
-        password: ''
+        hasError: false,
+        error: '',
+        userName: action.data.user.name,
+        userEmail: action.data.user.email,
+        userPassword: state.password,
+        isLogin: true,
+        password: '',
       }
     case LOGIN_FORM_FAILED:
       return{
