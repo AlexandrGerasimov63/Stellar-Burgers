@@ -5,7 +5,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginValue, login } from "../../services/actions/user";
 
@@ -17,6 +17,7 @@ export default function Login() {
   const pass = useSelector((store)=>store.auth.password)
   const err = useSelector((store)=>store.auth.error)
   const hasError = useSelector((store)=>store.auth.hasError)
+  const isLogin = useSelector((store)=>store.auth.isLogin)
 
   function inputUser(evt) {
     dispatch(setLoginValue(evt.target.name, evt.target.value));
@@ -28,6 +29,9 @@ export default function Login() {
     dispatch(login( email, pass));
   }
 
+  if(isLogin){
+   return <Redirect to='/' />
+  }
 
   return (
     <section className={LoginStyle.wrapper}>

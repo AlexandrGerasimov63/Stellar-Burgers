@@ -18,10 +18,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, openOrderModal } from "../../services/actions/order";
 
+import { Link } from "react-router-dom";
+
 export default function BurgerConstructor() {
   // Получение констан из стора
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
+  const isLogin = useSelector((store)=>store.auth.isLogin)
   // Получени id для отправки на сервер
   const ingridientsId = ingridientData.map((item) => item._id);
   const productID = [...ingridientsId, bunData._id];
@@ -189,16 +192,38 @@ export default function BurgerConstructor() {
       <Constructor />
       <div className={`${burgerConstructorStyle.total} pr-4 pb-10`}>
         <FullPrice />
-        {ingridientData.length === 0 || !bunData ? (
-          <Button type="primary" size="large" onClick={openModal} disabled>
-            "Оформить заказ"
-          </Button>
-        ) : (
-          <Button type="primary" size="large" onClick={openModal}>
-            "Оформить заказ"
-          </Button>
+        {!isLogin && (
+          <Link to="/login">
+            <Button
+              type="primary"
+              size="large"
+              disabled={ingridientData.length === 0 || !bunData}
+            >
+              Оформить заказ
+            </Button>
+          </Link>
         )}
+
+        {isLogin && (
+          <Button
+            type="primary"
+            size="large"
+            onClick={openModal}
+            disabled={ingridientData.length === 0 || !bunData}
+          >
+            Оформить заказ
+          </Button>)}
       </div>
     </section>
   );
 }
+
+{/* {ingridientData.length === 0 || !bunData ? (
+  <Button type="primary" size="large" onClick={openModal} disabled>
+    "Оформить заказ"
+  </Button>
+) : (
+  <Button type="primary" size="large" onClick={openModal}>
+    "Оформить заказ"
+  </Button>
+)} */}

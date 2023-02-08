@@ -53,13 +53,13 @@ export default function Appheader() {
             styleText={`text text_type_main-default text_color_inactive pl-2`}
           />
         </MenuList>
-        <Link to='/profile'>
+        <Link to='/'>
         <MenuItem
         icon={<Logo />}
         itemStyle={`${headerStyle.logo}`}
         />
         </Link>
-        <NavLink to='/login'>
+        <NavLink to='/profile'>
         <MenuItem
           text="Личный кабинет"
 

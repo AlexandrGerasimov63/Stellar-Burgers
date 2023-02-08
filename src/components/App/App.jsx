@@ -16,14 +16,20 @@ import Register from "../../pages/Register/Register";
 import Forgot from "../../pages/Forgot/Forgot";
 import Reset from '../../pages/Reset/Reset'
 import Login from "../../pages/Login/Login";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
+import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+
+
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
   const error = useSelector((store) => store.burgerIngridient.error);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state?.background;
+
   const orderModalOpen = useSelector((store) => store.order.modal);
 
   useEffect(() => {
@@ -43,7 +49,7 @@ function App() {
   return (
     <div>
       <AppHeader />
-      <Switch>
+      <Switch location={background || location}>
         <Route path='/' exact>
       <main className={appStyle.main}>
         {isLoading && "Загрузка"}
@@ -78,9 +84,9 @@ function App() {
         <Route path="/login" exact>
           <Login />
         </Route>
-        <Route path="/profile" exact>
+        <ProtectedRoute path="/profile" exact>
           <Profile/>
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </div>
   );

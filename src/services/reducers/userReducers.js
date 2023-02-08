@@ -25,12 +25,22 @@ export const authReducer = (state= userInitialState, action) => {
         ...state,
         [action.field]: action.value,
       }
-    case REGISTER_SENDING_REQUEST:
+      case REGISTER_SENDING_REQUEST:
+      const accessToken = action.data.accessToken.split("Bearer ")[1];
+      const refreshToken = action.data.refreshToken;
+      setCookie("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
       return{
         ...state,
         name: '',
         email: '',
-        password: ''
+        userName: action.data.user.name,
+        userEmail: action.data.user.email,
+        userPassword: state.password,
+        password: '',
+        hasError: false,
+        error:'',
+        isLogin: true
       }
       default:{
         return state
@@ -50,10 +60,10 @@ export const authReducer = (state= userInitialState, action) => {
         [action.field]: action.value
       }
     case LOGIN_FORM_REQUEST:
-      const accessToken = action.data.accessToken.split("Bearer ")[1];
-      const refreshToken = action.data.refreshToken;
-      setCookie("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+      const accessTokenLogin = action.data.accessToken.split("Bearer ")[1];
+      const refreshTokenLogin = action.data.refreshToken;
+      setCookie("accessToken", accessTokenLogin);
+      localStorage.setItem("refreshToken", refreshTokenLogin);
       return{
         ...state,
         email: '',

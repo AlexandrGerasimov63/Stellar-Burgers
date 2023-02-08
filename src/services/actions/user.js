@@ -50,9 +50,10 @@ export function login(email, pass) {
 export function registration(name, email, pass) {
   return function (dispatch) {
     getRegistrationRecuest(name, email, pass)
-      .then(() => {
+      .then((res) => {
         dispatch({
           type: REGISTER_SENDING_REQUEST,
+          data: res,
         });
       })
       .catch((err) => {

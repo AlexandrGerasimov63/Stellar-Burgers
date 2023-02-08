@@ -6,7 +6,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setFormValue, registration } from "../../services/actions/user";
 
@@ -15,8 +15,9 @@ export default function Registration() {
   const name = useSelector((store) => store.auth.name);
   const email = useSelector((store) => store.auth.email);
   const pass = useSelector((store) => store.auth.password);
-  const err = useSelector((store)=>store.auth.error)
-  const hasError = useSelector((store)=>store.auth.hasError)
+  const err = useSelector((store)=>store.auth.error);
+  const hasError = useSelector((store)=>store.auth.hasError);
+  const isLogin = useSelector((store)=>store.auth.isLogin)
 
   function inputUser(evt) {
     dispatch(setFormValue(evt.target.name, evt.target.value));
@@ -28,7 +29,9 @@ export default function Registration() {
     dispatch(registration(name, email, pass));
   }
 
-
+  if(isLogin){
+    return <Redirect to='/' />
+  }
 
   return (
     <section className={RegistrationStyle.wrapper}>
