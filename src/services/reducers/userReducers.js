@@ -1,9 +1,10 @@
-import { GET_REGISTER } from "../actions/user"
+import { GET_REGISTER, RESET_FORM_FAILED, RESET_FORM_REQUEST,RECOVERY_FORM_VALUE, RECOVERY_FORM_REQUSET, RECOVERY_FORM_FAILED } from "../actions/user"
 import { REGISTER_SENDING_REQUEST } from "../actions/user"
 import {REGISTER_SENDING_FAILED} from "../actions/user"
 import {LOGIN_FORM_VALUE} from '../actions/user'
 import { LOGIN_FORM_REQUEST } from "../actions/user"
 import { LOGIN_FORM_FAILED } from "../actions/user"
+import { RESET_FORM_VALUE } from "../actions/user"
 import { setCookie } from "../../utils/cookie"
 const userInitialState = {
 
@@ -15,7 +16,10 @@ const userInitialState = {
   userName: '',
   userEmail: '',
   userPassword: '',
-  isLogin: false
+  isLogin: false,
+  resetPass: false,
+  code:'',
+  recoveryPass: false,
 }
 
 export const authReducer = (state= userInitialState, action) => {
@@ -42,28 +46,25 @@ export const authReducer = (state= userInitialState, action) => {
         error:'',
         isLogin: true
       }
-      default:{
-        return state
-      }
 
-    case REGISTER_SENDING_FAILED:
-      return{
-        ...state,
-        hasError: true,
-        error: action.error,
+      case REGISTER_SENDING_FAILED:
+        return{
+          ...state,
+          hasError: true,
+          error: action.error,
 
-      }
-    case LOGIN_FORM_VALUE:
-      return{
-        ...state,
-        hasError: false,
-        [action.field]: action.value
-      }
-    case LOGIN_FORM_REQUEST:
+        }
+        case LOGIN_FORM_VALUE:
+          return{
+            ...state,
+            hasError: false,
+            [action.field]: action.value
+          }
+          case LOGIN_FORM_REQUEST:
       const accessTokenLogin = action.data.accessToken.split("Bearer ")[1];
       const refreshTokenLogin = action.data.refreshToken;
-      setCookie("accessToken", accessTokenLogin);
       localStorage.setItem("refreshToken", refreshTokenLogin);
+      setCookie("accessToken", accessTokenLogin);
       return{
         ...state,
         email: '',
@@ -75,11 +76,56 @@ export const authReducer = (state= userInitialState, action) => {
         isLogin: true,
         password: '',
       }
-    case LOGIN_FORM_FAILED:
+      case LOGIN_FORM_FAILED:
       return{
         ...state,
         hasError: true,
         error: action.error,
       }
+      case RESET_FORM_VALUE:
+        return{
+          ...state,
+          hasError: false,
+          [action.field]: action.value
+        }
+      case RESET_FORM_REQUEST:
+        return{
+          ...state,
+          hasError: false,
+          resetPass: true,
+          email:'',
+          recoveryPass:false
+        }
+      case RESET_FORM_FAILED:
+        return{
+          ...state,
+          hasError:true,
+          error:action.error,
+        }
+      case RECOVERY_FORM_VALUE:
+        return{
+          ...state,
+          hasError: false,
+          [action.field]: action.value
+        }
+      case RECOVERY_FORM_REQUSET:
+        return{
+          ...state,
+          userPassword:state.password,
+          hasError: false,
+          password:'',
+          code:'',
+          recoveryPass: true,
+          resetPass: false
+        }
+      case RECOVERY_FORM_FAILED:
+        return{
+          ...state,
+          hasError:true,
+          error:action.error,
+        }
+      default:{
+        return state
+      }
+    }
   }
-}

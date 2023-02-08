@@ -4,20 +4,58 @@ import {
   EmailInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { setResetValue, resetPass } from "../../services/actions/user";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
+
+
 export default function Forgot() {
+  const dispatch = useDispatch();
+  const email = useSelector((store)=>store.auth.email)
+  const isLogin = useSelector((store)=>store.auth.isLogin)
+  const resetPassComplit = useSelector((store)=>store.auth.resetPass)
+  const err = useSelector((store)=>store.auth.error)
+  const hasError = useSelector((store)=>store.auth.hasError)
+
+  function inputEmailReset (evt){
+    dispatch(setResetValue(evt.target.name, evt.target.value));
+  }
+
+  function submitResetForm(evt) {
+    evt.preventDefault();
+    dispatch(resetPass(email))
+  }
+
+  if(isLogin){
+    return <Redirect to='/' />
+  }
+
+  if(resetPassComplit){
+   return <Redirect to='/reset' />
+  }
+
+
   return (
     <section className={ForgotStyle.wrapper}>
-      <form className={ForgotStyle.form}>
+      <form className={ForgotStyle.form} onSubmit={submitResetForm}>
         <p className="text text_type_main-medium">Восстановление пароля</p>
         <div className="mt-6">
-          <EmailInput type="text" placeholder="E-mail" size={"default"} />
+          <EmailInput
+          name="email"
+          value={email}
+          placeholder="E-mail"
+          size={"default"}
+          onChange={inputEmailReset}/>
         </div>
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium">
+          <Button htmlType="button" type="primary" size="medium" disabled={!email} onClick={submitResetForm}>
             Восстановить
           </Button>
         </div>
+        {hasError && <p>{`${err}`}</p>}
         <p className="text text_type_main-default text_color_inactive mt-20">
           Вспомнили пароль?
           <Link to="/login">
