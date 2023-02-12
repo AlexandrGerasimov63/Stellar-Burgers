@@ -96,3 +96,42 @@ export const getLogout = async () => {
   });
   return checkResponse(res);
 }
+
+
+export const updateUserInfo = async (name, email, pass, token) => {
+  const res = await fetch (`${config.endPointAuth}/user`,{
+    method: "PATCH",
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: pass,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+  });
+  return checkResponse(res)
+}
+
+export const getUser = async (token) => {
+  const res = await fetch(`${config.endPointAuth}/user`,{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
+  });
+  return checkResponse(res)
+}
+
+export const updateToken = async(token) => {
+  const res = await fetch(`${config.endPointAuth}/token`,{
+    method: "POST",
+    headers: config.headers,
+    body: JSON.stringify({
+      token:token
+    }),
+  });
+  return checkResponse(res)
+}

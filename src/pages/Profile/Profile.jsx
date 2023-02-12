@@ -1,19 +1,45 @@
+import React, { useEffect} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logout, resetProfileValue, setProfile, setProfileValue } from "../../services/actions/user";
 import profileStyles from "./Profile.module.css";
 
 export default function Profile() {
-  const name = useSelector((store) => store.auth.userName);
-  const email = useSelector((store) => store.auth.userEmail);
-  const pass = useSelector((store) => store.auth.userPassword);
+  const dispatch = useDispatch()
+  const userName = useSelector((store) => store.auth.userName);
+  const userEmail = useSelector((store) => store.auth.userEmail);
+  const userPass = useSelector((store) => store.auth.userPassword);
+  const name = useSelector((store) => store.auth.name);
+  const email = useSelector((store) => store.auth.email);
+  const pass = useSelector((store) => store.auth.password);
+  const err = useSelector((store)=>store.auth.error)
+  const hasError = useSelector((store)=>store.auth.hasError)
+
+  const onChange = (evt) => {
+    dispatch(setProfileValue(evt.target.name, evt.target.value))
+  }
+  console.log(name)
+
+  useEffect(() => {
+    dispatch(setProfile());
+  }, []);
+
   const [inputOpen, changeInput] = useState(true);
   const changeFieldClick = () =>changeInput(!inputOpen);
 
+  function logoutUser () {
+    dispatch(logout())
+  }
+
+  function onClickReset (evt) {
+    evt.preventDefault();
+    dispatch(resetProfileValue())
+  }
 
   return (
     <section className={profileStyles.content_box}>
@@ -39,11 +65,13 @@ export default function Profile() {
           <li className="mt-10">
             <NavLink
               className={`${profileStyles.menu_button} text text_type_main-medium`}
+              onClick={logoutUser}
               to="/login"
             >
               Выход
             </NavLink>
           </li>
+          {hasError && <p>{`${err}`}</p>}
         </ul>
         <p className="text text_type_main-small text_color_inactive mt-20">
           В этом разделе вы можете изменить свои персональные данные
@@ -56,11 +84,12 @@ export default function Profile() {
             size="default"
             placeholder="Имя"
             icon={"EditIcon"}
-            value={name || 'Имя'}
+            value={name || "Имя"}
             disabled={inputOpen}
             onIconClick={changeFieldClick}
             name="name"
             type="text"
+            onChange={onChange}
           />
         </div>
         <div className="mt-6">
@@ -72,6 +101,7 @@ export default function Profile() {
             onIconClick={changeFieldClick}
             name="email"
             type="email"
+            onChange={onChange}
           />
         </div>
         <div className="mt-6">
@@ -81,16 +111,21 @@ export default function Profile() {
             value={pass || "password"}
             disabled={inputOpen}
             onIconClick={changeFieldClick}
-            name="pass"
+            name="password"
             type="password"
+            onChange={onChange}
           />
         </div>
-        {/* <div className={`${profileStyles.buttons_wrapper} mt-6`}>
-          <Button>
+        <div className={`${profileStyles.buttons_wrapper} mt-6`}>
+          <Button
+          disabled={(name===userName) && (email===userEmail) && (pass===userPass)}
+          onClick={onClickReset}>
             Отмена
           </Button>
-          <Button>Сохранить</Button>
-        </div> */}
+          <Button disabled={(name===userName) && (email===userEmail) && (pass===userPass)}>
+            Сохранить
+          </Button>
+        </div>
       </form>
     </section>
   );

@@ -19,6 +19,8 @@ import Login from "../../pages/Login/Login";
 import { Route, Switch, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
+import { checkUser } from "../../services/actions/user";
+import { getCookie } from "../../utils/cookie";
 
 
 
@@ -26,6 +28,9 @@ function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
   const error = useSelector((store) => store.burgerIngridient.error);
+  const token = getCookie('accessToken')
+  const hasErrorUser = useSelector((store)=>store.auth.hasError);
+  const errorUser = useSelector((store)=>store.auth.error);
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state?.background;
@@ -34,6 +39,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    dispatch(checkUser());
   }, [dispatch]);
 
   const closeDetailsModal = useCallback(() => {
@@ -49,6 +55,7 @@ function App() {
   return (
     <div>
       <AppHeader />
+      {hasErrorUser && `Ошибка идентификации пользователя ${errorUser}` && token}
       <Switch location={background || location}>
         <Route path='/' exact>
       <main className={appStyle.main}>
