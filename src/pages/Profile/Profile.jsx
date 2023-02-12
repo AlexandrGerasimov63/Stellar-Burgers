@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logout, resetProfileValue, setProfile, setProfileValue } from "../../services/actions/user";
+import { checkUser, logout, resetProfileValue, setProfile, setProfileValue, updateUser } from "../../services/actions/user";
 import profileStyles from "./Profile.module.css";
 
 export default function Profile() {
@@ -26,6 +26,7 @@ export default function Profile() {
   console.log(name)
 
   useEffect(() => {
+    dispatch(checkUser())
     dispatch(setProfile());
   }, []);
 
@@ -40,6 +41,12 @@ export default function Profile() {
     evt.preventDefault();
     dispatch(resetProfileValue())
   }
+
+  function onSubmitUser (evt) {
+    evt.preventDefault();
+    dispatch(updateUser(name, email, pass))
+  }
+
 
   return (
     <section className={profileStyles.content_box}>
@@ -78,7 +85,7 @@ export default function Profile() {
         </p>
       </div>
 
-      <form className={`${profileStyles.inputs_wrapper} ml-15`}>
+      <form className={`${profileStyles.inputs_wrapper} ml-15`} onSubmit={onSubmitUser}>
         <div className={profileStyles.input}>
           <Input
             size="default"
@@ -122,7 +129,7 @@ export default function Profile() {
           onClick={onClickReset}>
             Отмена
           </Button>
-          <Button disabled={(name===userName) && (email===userEmail) && (pass===userPass)}>
+          <Button disabled={(name===userName) && (email===userEmail) && (pass===userPass)} onClick={onSubmitUser}>
             Сохранить
           </Button>
         </div>

@@ -1,4 +1,4 @@
-import { getRegistrationRecuest, getLoginRecuest, getResetPass, getRecoveryPass, getLogout,getUser, updateToken } from "../../utils/api";
+import { getRegistrationRecuest, getLoginRecuest, getResetPass, getRecoveryPass, getLogout,getUser, updateToken, updateUserInfo } from "../../utils/api";
 import { deleteCookie, getCookie } from "../../utils/cookie";
 export const GET_REGISTER = "GET_REGISTER";
 export const REGISTER_SENDING_REQUEST = "REGISTER_SENDING_REQUEST";
@@ -22,6 +22,8 @@ export const GET_USER = 'GET_USER';
 export const GET_USER_FAILED = "GET_USER_FAILED";
 export const UPDATE_TOKEN_SUCCESS ="UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILIED = 'UPDATE_USER_FAILIED';
 
 export function checkUser () {
   const token = getCookie("accessToken")
@@ -58,6 +60,25 @@ export function checkUser () {
   }
 }
 
+export function updateUser (name, email, pass) {
+  const token = getCookie("accessToken");
+  return function (dispatch) {
+    updateUserInfo(name, email, pass, token)
+    .then((res)=>{
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        data: res,
+      })
+
+    })
+    .catch((err)=>{
+      dispatch({
+        type: UPDATE_USER_FAILIED,
+        error: err,
+      })
+    })
+  }
+}
 
 export function setFormValue(field, value) {
   return function (dispatch) {

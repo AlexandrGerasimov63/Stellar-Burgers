@@ -14,6 +14,8 @@ import {
   GET_USER_FAILED,
   UPDATE_TOKEN_SUCCESS,
   UPDATE_TOKEN_FAILED,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILIED,
 } from "../actions/user";
 import { REGISTER_SENDING_REQUEST } from "../actions/user";
 import { REGISTER_SENDING_FAILED } from "../actions/user";
@@ -200,6 +202,20 @@ export const authReducer = (state = userInitialState, action) => {
         ...state,
         isLogin: false,
         hasError:true,
+        error: action.error,
+      }
+    case UPDATE_USER_SUCCESS:
+      return{
+        ...state,
+        isLogin: true,
+        userName: action.data.user.name,
+        userEmail:action.data.user.email,
+        hasError: false
+      }
+    case UPDATE_USER_FAILIED:
+      return{
+        ...state,
+        hasError: true,
         error: action.error,
       }
     default: {
