@@ -23,7 +23,7 @@ export default function Profile() {
   const onChange = (evt) => {
     dispatch(setProfileValue(evt.target.name, evt.target.value))
   }
-  console.log(name)
+
 
   useEffect(() => {
     dispatch(checkUser())

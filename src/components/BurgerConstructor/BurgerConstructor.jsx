@@ -218,12 +218,4 @@ export default function BurgerConstructor() {
   );
 }
 
-{/* {ingridientData.length === 0 || !bunData ? (
-  <Button type="primary" size="large" onClick={openModal} disabled>
-    "Оформить заказ"
-  </Button>
-) : (
-  <Button type="primary" size="large" onClick={openModal}>
-    "Оформить заказ"
-  </Button>
-)} */}
+

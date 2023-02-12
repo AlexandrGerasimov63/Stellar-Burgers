@@ -154,10 +154,10 @@ export function login(email, pass) {
           type: LOGIN_FORM_REQUEST,
           data: res,
         });
-        console.log(res);
+
       })
       .catch((err) => {
-        console.log(err)
+
         dispatch({
           type: LOGIN_FORM_FAILED,
           error: err,

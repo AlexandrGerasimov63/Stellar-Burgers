@@ -5,12 +5,7 @@ const config = {
   },
   endPointAuth: "https://norma.nomoreparties.space/api/auth",
 };
-// const endPoint = {
-//
-//
-//   logout : 'https://norma.nomoreparties.space/api/auth/logout',
-//   refreshToken : 'https://norma.nomoreparties.space/api/auth/token'
-// }
+
 
 function checkResponse(res) {
   if (res.ok) {
