@@ -20,6 +20,7 @@ import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
+import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 
 
 
@@ -86,10 +87,15 @@ function App() {
         </ProtectedRoute>
       </Switch>
       <Route path='/ingredients/:id'>
+        <DetailsPage/>
+      </Route>
+      {background &&(
+        <Route path='/ingredients/:id'>
         <Modal close={closeDetailsModal} text={'Детали ингридиента'}>
           <IngridientDetails/>
         </Modal>
       </Route>
+      )}
       {orderModalOpen && (
         <Modal close={getCloseOrderModal}>
           <OrderDetails />
