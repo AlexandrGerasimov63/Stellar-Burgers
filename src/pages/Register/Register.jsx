@@ -61,7 +61,7 @@ export default function Registration() {
            />
         </div>
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium"  disabled={!name || !email || !pass} onClick={submitForm}>
+          <Button htmlType="submit" type="primary" size="medium"  disabled={!name || !email || !pass}>
             Зарегистрироваться
           </Button>
         </div>

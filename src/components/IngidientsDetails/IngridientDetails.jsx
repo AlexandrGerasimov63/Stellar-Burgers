@@ -1,10 +1,18 @@
 import React from "react";
 import ingridientDetailsStyle from "./IngridientDetails.module.css";
 
-import { ingredientType } from "../../utils/types";
+
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
-function IngridientDetails({ data }) {
+function IngridientDetails() {
+  const {id}= useParams();
+  const ingredients = useSelector((store) => store.burgerIngridient.ingridients);
+  const data = ingredients.find(item => item._id === id);
+  if(!data){
+    return null
+  }
   function Ingridient(data) {
     return (
       <li className={`${ingridientDetailsStyle.item}`}>
@@ -46,8 +54,6 @@ function IngridientDetails({ data }) {
 
 
 
-IngridientDetails.propTypes = {
-  data: ingredientType.isRequired
-}
+
 
 export { IngridientDetails };

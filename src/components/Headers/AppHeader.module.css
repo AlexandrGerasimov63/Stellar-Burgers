@@ -56,3 +56,7 @@
   justify-content: center;
   margin-right: 155px;
 }
+
+.activeLink{
+  color: white
+}

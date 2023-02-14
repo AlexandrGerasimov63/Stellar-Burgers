@@ -2,7 +2,7 @@ import {OPEN_INGRIDIENT_MODAL,CLOSE_INGIRIDIENT_MODAL} from '../actions/details'
 
 
 const detailsInitialState = {
-  openModal : null
+  openModal : false
 }
 
 export const detailsReducer = (state=detailsInitialState, action) => {
@@ -10,12 +10,14 @@ export const detailsReducer = (state=detailsInitialState, action) => {
     case OPEN_INGRIDIENT_MODAL:
       return {
         ...state,
-        openModal: action.ingridient
+        openModal: true,
       }
     case CLOSE_INGIRIDIENT_MODAL:
+
       return {
         ...state,
-        openModal: null,
+        openModal: false,
+
       }
     default: {
       return state

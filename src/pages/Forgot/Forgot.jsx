@@ -51,7 +51,7 @@ export default function Forgot() {
           onChange={inputEmailReset}/>
         </div>
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium" disabled={!email} onClick={submitResetForm}>
+          <Button htmlType="submit" type="primary" size="medium" disabled={!email} >
             Восстановить
           </Button>
         </div>

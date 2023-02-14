@@ -20,7 +20,6 @@ import { Route, Switch, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
-import { getCookie } from "../../utils/cookie";
 
 
 
@@ -28,18 +27,19 @@ function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
   const error = useSelector((store) => store.burgerIngridient.error);
-  const token = getCookie('accessToken')
-  const hasErrorUser = useSelector((store)=>store.auth.hasError);
-  const errorUser = useSelector((store)=>store.auth.error);
+  const refreshToken = localStorage.getItem('refreshToken')
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state?.background;
+  const modalOpen = useSelector((store)=>store.details.openModal)
 
   const orderModalOpen = useSelector((store) => store.order.modal);
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    dispatch(checkUser());
+    if(refreshToken){
+    dispatch(checkUser())
+    };
   }, [dispatch]);
 
   const closeDetailsModal = useCallback(() => {
@@ -50,12 +50,11 @@ function App() {
     dispatch(closeOrderModal());
   },[dispatch]);
 
-  const openIngridientModal = useSelector((store) => store.details.openModal);
+
 
   return (
     <div>
       <AppHeader />
-      {hasErrorUser && `Ошибка идентификации пользователя ${errorUser}` && token}
       <Switch location={background || location}>
         <Route path='/' exact>
       <main className={appStyle.main}>
@@ -68,16 +67,6 @@ function App() {
           </DndProvider>
         )}
       </main>
-      {openIngridientModal && (
-        <Modal text="Детали ингредиента" close={closeDetailsModal}>
-          <IngridientDetails data={openIngridientModal} />
-        </Modal>
-      )}
-      {orderModalOpen && (
-        <Modal close={getCloseOrderModal}>
-          <OrderDetails />
-        </Modal>
-      )}
         </Route>
         <Route path="/register" exact>
           <Register />
@@ -95,6 +84,16 @@ function App() {
           <Profile/>
         </ProtectedRoute>
       </Switch>
+      <Route path='/ingredients/:id'>
+        <Modal close={closeDetailsModal} text={'Детали ингридиента'}>
+          <IngridientDetails/>
+        </Modal>
+      </Route>
+      {orderModalOpen && (
+        <Modal close={getCloseOrderModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 }

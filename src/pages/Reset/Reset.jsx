@@ -65,7 +65,7 @@ export default function Reset () {
         </div>
 
         <div className="mt-6">
-          <Button htmlType="button" type="primary" size="medium" onClick={submitRecovery}>
+          <Button htmlType="submit" type="primary" size="medium">
             Сохранить
           </Button>
         </div>

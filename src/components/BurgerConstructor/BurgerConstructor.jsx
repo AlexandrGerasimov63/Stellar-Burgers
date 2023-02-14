@@ -195,6 +195,7 @@ export default function BurgerConstructor() {
         {!isLogin && (
           <Link to="/login">
             <Button
+              htmlType="button"
               type="primary"
               size="large"
               disabled={ingridientData.length === 0 || !bunData}
@@ -206,6 +207,7 @@ export default function BurgerConstructor() {
 
         {isLogin && (
           <Button
+            htmlType="button"
             type="primary"
             size="large"
             onClick={openModal}

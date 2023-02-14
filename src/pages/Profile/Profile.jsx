@@ -125,11 +125,12 @@ export default function Profile() {
         </div>
         <div className={`${profileStyles.buttons_wrapper} mt-6`}>
           <Button
+          htmlType="reset"
           disabled={(name===userName) && (email===userEmail) && (pass===userPass)}
           onClick={onClickReset}>
             Отмена
           </Button>
-          <Button disabled={(name===userName) && (email===userEmail) && (pass===userPass)} onClick={onSubmitUser}>
+          <Button htmlType="submit" disabled={(name===userName) && (email===userEmail) && (pass===userPass)}>
             Сохранить
           </Button>
         </div>

@@ -7,8 +7,9 @@ import { IngridientsSection } from "./IngridientSection/IngridientsSection";
 import { IngridientsTitle } from "./IngridientsTitle/IngridientsTitle";
 import { CardMap } from "./CardMap/CardMap";
 import { IngredientWrapper } from "./IngridientWrapper/IngridientWrapper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
+import { openIngridientModal } from "../../services/actions/details";
 
 export default function BurgerIngredients() {
 
@@ -85,6 +86,10 @@ export default function BurgerIngredients() {
   const bunArr =useMemo(()=>getArr.filter((item) => item.type === "bun"),[getArr]);
   const mainArr = useMemo(()=>getArr.filter((item) => item.type === "main"),[getArr]);
   const sauceArr = useMemo(()=>getArr.filter((item) => item.type === "sauce"),[getArr]);
+  const dispatch = useDispatch()
+  const openModal =(id) => {
+    dispatch(openIngridientModal())
+  }
 
   return (
     <IngridientsSection sectionStyle={`${burgerIngridientStyle.section} mt-10`}>
@@ -95,13 +100,13 @@ export default function BurgerIngredients() {
       <IngredientsTabs tabStyle={`${burgerIngridientStyle.tab} mb-5`} />
       <div className={`${burgerIngridientStyle.ingridientsList}`}>
         <IngredientWrapper text="Булки" tabRef={bunRef} type='bun'>
-          <CardMap data={bunArr} />
+          <CardMap data={bunArr} open={openModal}/>
         </IngredientWrapper>
         <IngredientWrapper text="Соусы" tabRef={sauceRef} type='sauce'>
-          <CardMap data={sauceArr} />
+          <CardMap data={sauceArr} open={openModal}/>
         </IngredientWrapper>
         <IngredientWrapper text="Начинки" tabRef={mainRef} type='main'>
-          <CardMap data={mainArr} />
+          <CardMap data={mainArr} open={openModal}/>
         </IngredientWrapper>
       </div>
     </IngridientsSection>

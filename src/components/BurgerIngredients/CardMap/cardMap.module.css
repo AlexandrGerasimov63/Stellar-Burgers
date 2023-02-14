@@ -2,4 +2,13 @@
   list-style: none;
   max-width: 272px;
   width: 100%;
+
+}
+.link{
+  text-decoration: none;
+  color: white;
+}
+.link:hover{
+  transition: all .5s ease;
+  opacity: 0.6;
 }
