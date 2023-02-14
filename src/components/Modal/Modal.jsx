@@ -4,14 +4,12 @@ import { createPortal } from "react-dom";
 import modalStyle from "./Modal.module.css";
 import PropTypes from "prop-types";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
-import { Link, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 
 
 const modalRoot = document.querySelector("#modal");
 
 export default function Modal(props) {
-  const modalOpen = useSelector((store)=>store.details.openModal)
 
 
   useEffect(() => {
