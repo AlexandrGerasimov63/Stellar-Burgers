@@ -31,7 +31,6 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state?.background;
-  const modalOpen = useSelector((store)=>store.details.openModal)
 
   const orderModalOpen = useSelector((store) => store.order.modal);
 
