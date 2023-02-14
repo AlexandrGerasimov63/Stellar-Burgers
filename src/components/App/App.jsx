@@ -14,7 +14,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { closeOrderModal } from "../../services/actions/order";
 import Register from "../../pages/Register/Register";
 import Forgot from "../../pages/Forgot/Forgot";
-import Reset from '../../pages/Reset/Reset'
+import Reset from "../../pages/Reset/Reset";
 import Login from "../../pages/Login/Login";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
@@ -22,13 +22,11 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 
-
-
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
   const error = useSelector((store) => store.burgerIngridient.error);
-  const refreshToken = localStorage.getItem('refreshToken')
+  const refreshToken = localStorage.getItem("refreshToken");
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -38,37 +36,35 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    if(refreshToken){
-    dispatch(checkUser())
-    };
+    if (refreshToken) {
+      dispatch(checkUser());
+    }
   }, [dispatch]);
 
   const closeDetailsModal = useCallback(() => {
     dispatch(closeIngridientModal());
     history.goBack();
-  },[dispatch]);
+  }, [dispatch]);
 
   const getCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
-  },[dispatch]);
-
-
+  }, [dispatch]);
 
   return (
     <div>
       <AppHeader />
       <Switch location={background || location}>
-        <Route path='/' exact>
-      <main className={appStyle.main}>
-        {isLoading && "Загрузка"}
-        {hasError && `Упс, что-то пошло не так, произошла ошибка ${error}`}
-        {!isLoading && !hasError && (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        )}
-      </main>
+        <Route path="/" exact>
+          <main className={appStyle.main}>
+            {isLoading && "Загрузка"}
+            {hasError && `Упс, что-то пошло не так, произошла ошибка ${error}`}
+            {!isLoading && !hasError && (
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
+            )}
+          </main>
         </Route>
         <Route path="/register" exact>
           <Register />
@@ -83,18 +79,18 @@ function App() {
           <Login />
         </Route>
         <ProtectedRoute path="/profile" exact>
-          <Profile/>
+          <Profile />
         </ProtectedRoute>
-      <Route path='/ingredients/:id'>
-        <DetailsPage/>
-      </Route>
+        <Route path="/ingredients/:id">
+          <DetailsPage />
+        </Route>
       </Switch>
-      {background &&(
-        <Route path='/ingredients/:id'>
-        <Modal close={closeDetailsModal} text={'Детали ингридиента'}>
-          <IngridientDetails/>
-        </Modal>
-      </Route>
+      {background && (
+        <Route path="/ingredients/:id">
+          <Modal close={closeDetailsModal} text={"Детали ингридиента"}>
+            <IngridientDetails />
+          </Modal>
+        </Route>
       )}
       {orderModalOpen && (
         <Modal close={getCloseOrderModal}>
