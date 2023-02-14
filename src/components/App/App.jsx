@@ -85,10 +85,10 @@ function App() {
         <ProtectedRoute path="/profile" exact>
           <Profile/>
         </ProtectedRoute>
-      </Switch>
       <Route path='/ingredients/:id'>
         <DetailsPage/>
       </Route>
+      </Switch>
       {background &&(
         <Route path='/ingredients/:id'>
         <Modal close={closeDetailsModal} text={'Детали ингридиента'}>
