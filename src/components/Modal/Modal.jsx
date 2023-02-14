@@ -13,13 +13,11 @@ const modalRoot = document.querySelector("#modal");
 export default function Modal(props) {
   const modalOpen = useSelector((store)=>store.details.openModal)
 
-  const history = useHistory()
+
   useEffect(() => {
     function handleEscKeydown(evt) {
       if (evt.key === "Escape") {
         props.close();
-        if(modalOpen){
-        history.goBack();}
       }
     }
 
@@ -29,11 +27,7 @@ export default function Modal(props) {
     };
   }, [props]);
 
-  // if(!modalOpen){
-  //   dispatch(closeIngridientModal());
-  //   dispatch(closeOrderModal());
-  //   return <Redirect to='/' />
-  // }
+
 
   return createPortal(
     <>
@@ -43,11 +37,11 @@ export default function Modal(props) {
         >
           {props.text}
         </h3>
-        <Link to='/'>
+
         <button onClick={props.close} className={modalStyle.btnClose}>
           {<CloseIcon />}
         </button>
-        </Link>
+
         {props.children}
       </div>
       <ModalOverlay close={props.close} />

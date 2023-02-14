@@ -16,7 +16,7 @@ import Register from "../../pages/Register/Register";
 import Forgot from "../../pages/Forgot/Forgot";
 import Reset from '../../pages/Reset/Reset'
 import Login from "../../pages/Login/Login";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
@@ -29,6 +29,7 @@ function App() {
   const error = useSelector((store) => store.burgerIngridient.error);
   const refreshToken = localStorage.getItem('refreshToken')
   const dispatch = useDispatch();
+  const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
 
@@ -43,6 +44,7 @@ function App() {
 
   const closeDetailsModal = useCallback(() => {
     dispatch(closeIngridientModal());
+    history.goBack();
   },[dispatch]);
 
   const getCloseOrderModal = useCallback(() => {
