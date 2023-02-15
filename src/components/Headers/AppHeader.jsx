@@ -48,7 +48,7 @@ export default function Appheader() {
               styleText={`text text_type_main-default pl-2`}
             />
           </NavLink>
-          <NavLink to="/lenta" className={`${headerStyle.link}`}>
+          <NavLink to="/feed" className={`${headerStyle.link}`}>
             <MenuItem
               text="Лента заказов"
               icon={<ListIcon type="secondary" />}

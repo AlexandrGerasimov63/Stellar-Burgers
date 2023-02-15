@@ -21,6 +21,7 @@ import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
+import Feed from "../Feed/Feed";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -83,6 +84,9 @@ function App() {
         </ProtectedRoute>
         <Route path="/ingredients/:id">
           <DetailsPage />
+        </Route>
+        <Route path="/feed" exact>
+          <Feed/>
         </Route>
       </Switch>
       {background && (

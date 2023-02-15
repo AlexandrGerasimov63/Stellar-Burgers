@@ -47,3 +47,9 @@
   display: flex;
   justify-content: space-between;
 }
+.order_wrapper{
+  height: calc(100vh - 270px);
+  width: 844px;
+  overflow: auto;
+  overflow-x: hidden;
+}
