@@ -22,6 +22,7 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 import Feed from "../Feed/Feed";
+import { wsConnectedClosed } from "../../services/actions/wsAction";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -32,7 +33,8 @@ function App() {
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
-
+  const locationPath = location.pathname;
+  const feedLocation = '/feed';
   const orderModalOpen = useSelector((store) => store.order.modal);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ function App() {
     if (refreshToken) {
       dispatch(checkUser());
     }
+
   }, [dispatch]);
 
   const closeDetailsModal = useCallback(() => {
@@ -50,6 +53,8 @@ function App() {
   const getCloseOrderModal = useCallback(() => {
     dispatch(closeOrderModal());
   }, [dispatch]);
+
+
 
   return (
     <div>
@@ -79,7 +84,7 @@ function App() {
         <Route path="/login" exact>
           <Login />
         </Route>
-        <ProtectedRoute path="/profile" exact>
+        <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
         <Route path="/ingredients/:id">

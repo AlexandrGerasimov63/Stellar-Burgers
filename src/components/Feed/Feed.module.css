@@ -2,3 +2,30 @@
   margin: 0 auto;
   max-width: 1240px;
 }
+.content_wrapper{
+  display: flex;
+  position: relative;
+}
+.content_box{
+  overflow: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 210px);
+}
+.content_box::-webkit-scrollbar{
+  background-color: #2F2F37;
+  width: 8px;
+}
+.content_box::-webkit-scrollbar-thumb{
+  background-color: #8585AD;
+}
+
+.content_list{
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.content_list_item{
+  color: white;
+  text-decoration: none;
+}
