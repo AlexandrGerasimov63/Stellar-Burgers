@@ -6,6 +6,7 @@ import { constructorReducer } from "./reducers/constructorReducers";
 import { authReducer } from "./reducers/userReducers";
 import { wsReducer } from "./reducers/wsReducer";
 import { wsUserReducer } from "./reducers/wsUserReducers";
+import { feedReducer } from "./reducers/feedReducers";
 
 
 export const rootReducer = combineReducers({
@@ -15,5 +16,6 @@ export const rootReducer = combineReducers({
   burgerConstructor : constructorReducer,
   auth : authReducer,
   wsReducer: wsReducer,
-  wsUserReducer: wsUserReducer
+  wsUserReducer: wsUserReducer,
+  feed: feedReducer
 })

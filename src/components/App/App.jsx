@@ -22,19 +22,21 @@ import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
 import Feed from "../Feed/Feed";
-import { wsConnectedClosed } from "../../services/actions/wsAction";
+import FeedDetails from "../FeedDetails/FeedDetails";
+import { closeFeedModal } from "../../services/actions/feed";
+import FeedDetailsPage from "../../pages/FeedDetailsPage/FeedDetailsPage";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
   const error = useSelector((store) => store.burgerIngridient.error);
+
   const refreshToken = localStorage.getItem("refreshToken");
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
-  const locationPath = location.pathname;
-  const feedLocation = '/feed';
+ ;
   const orderModalOpen = useSelector((store) => store.order.modal);
 
   useEffect(() => {
@@ -54,7 +56,10 @@ function App() {
     dispatch(closeOrderModal());
   }, [dispatch]);
 
-
+  const getCloseFeedModal = useCallback(()=>{
+    dispatch(closeFeedModal());
+    history.goBack();
+  },[dispatch])
 
   return (
     <div>
@@ -93,11 +98,21 @@ function App() {
         <Route path="/feed" exact>
           <Feed/>
         </Route>
+        <Route path="/feed/:id">
+          <FeedDetailsPage/>
+        </Route>
       </Switch>
       {background && (
         <Route path="/ingredients/:id">
           <Modal close={closeDetailsModal} text={"Детали ингридиента"}>
             <IngridientDetails />
+          </Modal>
+        </Route>
+      )}
+      {background &&(
+        <Route path="/feed/:id">
+          <Modal close={getCloseFeedModal}>
+            <FeedDetails/>
           </Modal>
         </Route>
       )}
