@@ -5,7 +5,7 @@ import OrderCardStyle from './OrderHistoryCard.module.css'
 
 
 export default function OrderHistoryCard ({data}) {
-  const { createdAt, number, name } = data;
+  const { createdAt, number, name, status } = data;
   const ingredients = useSelector((store) => store?.burgerIngridient.ingridients);
 
   const ingrList = data?.ingredients;
@@ -31,7 +31,7 @@ export default function OrderHistoryCard ({data}) {
   const hideItems = maxLength - 6;
 
   return (
-    <div className={`${OrderCardStyle.wrapper} mr-2 mt-6 pt-6 pb-6 pl-6 pr-6 `}>
+    <div className={`${OrderCardStyle.wrapper} mr-2 mb-6 pt-6 pb-6 pl-6 pr-6 `}>
       <div className={OrderCardStyle.card_wrapper}>
         <div className={OrderCardStyle.title_wrapper}>
           <p className="text text_type_digits-default">#{number}</p>
@@ -41,6 +41,27 @@ export default function OrderHistoryCard ({data}) {
         </div>
         <h3 className="text text_type_main-medium mt-6">{name}</h3>
       </div>
+      {status === "done" && (
+        <p
+          className={`${OrderCardStyle.status} text text_type_main-default mt-3 pt-3`}
+        >
+          Выполнен
+        </p>
+      )}
+       {status === "pending" && (
+        <p
+          className={`text text_type_main-default mt-3 pt-3`}
+        >
+          Готовится
+        </p>
+      )}
+      {status === "created" && (
+        <p
+          className={`text text_type_main-default mt-3 pt-3`}
+        >
+          Создан
+        </p>
+      )}
       <div className={`${OrderCardStyle.ingredients_wrapper} mt-6`}>
         <ul className={OrderCardStyle.ingredients_list}>
           {orderIngredientsData &&

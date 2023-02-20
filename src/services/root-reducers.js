@@ -7,7 +7,7 @@ import { authReducer } from "./reducers/userReducers";
 import { wsReducer } from "./reducers/wsReducer";
 import { wsUserReducer } from "./reducers/wsUserReducers";
 import { feedReducer } from "./reducers/feedReducers";
-
+import { historyReducer } from "./reducers/historyReducers";
 
 export const rootReducer = combineReducers({
   burgerIngridient: ingridientsReducer,
@@ -17,5 +17,6 @@ export const rootReducer = combineReducers({
   auth : authReducer,
   wsReducer: wsReducer,
   wsUserReducer: wsUserReducer,
-  feed: feedReducer
+  feed: feedReducer,
+  userHistory : historyReducer
 })

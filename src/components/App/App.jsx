@@ -25,6 +25,9 @@ import Feed from "../Feed/Feed";
 import FeedDetails from "../FeedDetails/FeedDetails";
 import { closeFeedModal } from "../../services/actions/feed";
 import FeedDetailsPage from "../../pages/FeedDetailsPage/FeedDetailsPage";
+import OrderHistoryDetails from "../OrderHistoryDetails/OrderHistoryDetails";
+import { closeHistoryModal } from "../../services/actions/profileHistory";
+import HistoryDetails from "../../pages/HistoryDetails/HistoryDetails";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -58,6 +61,11 @@ function App() {
 
   const getCloseFeedModal = useCallback(()=>{
     dispatch(closeFeedModal());
+    history.goBack();
+  },[dispatch])
+
+  const getCloseHistoryModal = useCallback(()=>{
+    dispatch(closeHistoryModal());
     history.goBack();
   },[dispatch])
 
@@ -101,6 +109,9 @@ function App() {
         <Route path="/feed/:id">
           <FeedDetailsPage/>
         </Route>
+        <ProtectedRoute path="/profile/orders/:id">
+          <HistoryDetails/>
+        </ProtectedRoute>
       </Switch>
       {background && (
         <Route path="/ingredients/:id">
@@ -113,6 +124,13 @@ function App() {
         <Route path="/feed/:id">
           <Modal close={getCloseFeedModal}>
             <FeedDetails/>
+          </Modal>
+        </Route>
+      )}
+      {background &&(
+        <Route path="/profile/orders/:id">
+          <Modal close={getCloseHistoryModal}>
+            <OrderHistoryDetails/>
           </Modal>
         </Route>
       )}

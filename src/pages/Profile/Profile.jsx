@@ -161,7 +161,7 @@ export default function Profile() {
             </div>
           </form>
         </Route>
-        <Route path="/profile/orders" exact>
+        <Route path="/profile/orders" >
           <OrdersHistory/>
         </Route>
       </Switch>

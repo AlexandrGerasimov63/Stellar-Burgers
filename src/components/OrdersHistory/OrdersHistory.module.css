@@ -7,10 +7,10 @@
   position: relative;
 }
 .content_box{
-  margin-top: 20px;
+  margin-left: 60px;
   overflow: auto;
   overflow-x: hidden;
-  height: calc(100vh - 210px);
+  height: 650px;
 }
 .content_box::-webkit-scrollbar{
   background-color: #2F2F37;
@@ -21,6 +21,7 @@
 }
 
 .content_list{
+  margin-left: 60px;
   text-decoration: none;
   list-style: none;
   margin: 0;
