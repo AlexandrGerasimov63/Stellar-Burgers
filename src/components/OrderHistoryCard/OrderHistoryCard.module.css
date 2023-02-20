@@ -1,0 +1,64 @@
+.wrapper{
+  width: 844px;
+  box-sizing: border-box;
+  background-color: #1C1C21;
+  border-radius: 40px;
+}
+.title_wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.card_wrapper {
+  width: 796px;
+}
+.ingredients_wrapper{
+  display: flex;
+  justify-content: space-between;
+}
+.ingredients_list{
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+.ingredient_item:not(:first-child){
+  margin-left: -12px;
+}
+.ingredients_image_wrapper{
+  padding: 2px;
+  border-radius: 100px;
+  background: linear-gradient(90deg,#801ab2,#4c4cff);
+}
+.ingredients_image_box{
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 100px;
+  background: #131316;
+  height: 64px;
+  width: 64px;
+  box-sizing: border-box;
+}
+.ingredients_image{
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.ingredients_price_wrapper{
+  display: flex;
+  align-items: center;
+}
+.ingredients_image_wrapper_hidden{
+  position: relative;
+}
+.ingredients_image_hidden{
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  opacity: .6;
+}
+.hidden_text{
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  cursor: pointer;
+}

@@ -1,3 +1,5 @@
+import { getCookie } from "./cookie";
+
 const config = {
   url: "https://norma.nomoreparties.space/api",
   headers: {
@@ -21,12 +23,17 @@ export const getIngredientsData = async () => {
 };
 
 export const getOrderNumber = async (productsId) => {
+  const token = getCookie("accessToken")
   const res = await fetch(`${config.url}/orders`, {
     method: "POST",
     body: JSON.stringify({
       ingredients: productsId,
+
     }),
-    headers: config.headers,
+    headers: {
+      "Content-Type": "application/json",
+      authorization: "Bearer " + token,
+    },
   });
 
   return checkResponse(res);

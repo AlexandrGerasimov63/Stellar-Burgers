@@ -15,6 +15,7 @@ import {
   updateUser,
 } from "../../services/actions/user";
 import profileStyles from "./Profile.module.css";
+import OrdersHistory from "../../components/OrdersHistory/OrdersHistory";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export default function Profile() {
             <NavLink
               to="/profile/orders"
               className={`${profileStyles.menu_button} text text_type_main-medium`}
+              activeClassName={profileStyles.active_button}
             >
               История заказов
             </NavLink>
@@ -87,9 +89,12 @@ export default function Profile() {
           </li>
           {hasError && <p>{`${err}`}</p>}
         </ul>
-        <p className="text text_type_main-small text_color_inactive mt-20">
+        {location.pathname ==='/profile' && (<p className="text text_type_main-small text_color_inactive mt-20">
           В этом разделе вы можете изменить свои персональные данные
-        </p>
+        </p>)}
+        {location.pathname ==='/profile/orders' && (<p className="text text_type_main-small text_color_inactive mt-20">
+        В этом разделе вы можете просмотреть свою историю заказов
+        </p>)}
       </div>
       <div>
       <Switch location={background || location}>
@@ -156,8 +161,8 @@ export default function Profile() {
             </div>
           </form>
         </Route>
-        <Route path="/profile/orders" >
-          <div className=""><h1>Привет</h1></div>
+        <Route path="/profile/orders" exact>
+          <OrdersHistory/>
         </Route>
       </Switch>
       </div>

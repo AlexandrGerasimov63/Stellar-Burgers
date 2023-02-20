@@ -56,7 +56,7 @@ export default function FeedDetails() {
       </p>
       {order?.status === "done" && (
         <p
-          className={`${FeedDetailsStyle.status} text text_type_main-default mt-3 `}
+          className={`${FeedDetailsStyle.status} text text_type_main-default mt-3 pt-3`}
         >
           Выполнен
         </p>
