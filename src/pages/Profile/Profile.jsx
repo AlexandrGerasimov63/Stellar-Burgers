@@ -28,7 +28,7 @@ export default function Profile() {
   const err = useSelector((store) => store.auth.error);
   const hasError = useSelector((store) => store.auth.hasError);
   const location = useLocation();
-  const background = location.state && location.state.background;
+  const background = location.state?.background;
 
   const onChange = (evt) => {
     dispatch(setProfileValue(evt.target.name, evt.target.value));

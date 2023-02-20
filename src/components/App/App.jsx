@@ -97,6 +97,9 @@ function App() {
         <Route path="/login" exact>
           <Login />
         </Route>
+        <ProtectedRoute path="/profile/orders/:id">
+          <HistoryDetails/>
+        </ProtectedRoute>
         <ProtectedRoute path="/profile">
           <Profile />
         </ProtectedRoute>
@@ -109,9 +112,6 @@ function App() {
         <Route path="/feed/:id">
           <FeedDetailsPage/>
         </Route>
-        <ProtectedRoute path="/profile/orders/:id">
-          <HistoryDetails/>
-        </ProtectedRoute>
       </Switch>
       {background && (
         <Route path="/ingredients/:id">
