@@ -49,8 +49,6 @@ export default function Profile() {
     dispatch(setProfile());
   }, []);
 
-  const [inputOpen, changeInput] = useState(true);
-  const changeFieldClick = () => changeInput(!inputOpen);
 
   function logoutUser() {
     dispatch(logout());
