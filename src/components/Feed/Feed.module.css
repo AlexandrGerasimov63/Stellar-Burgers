@@ -26,7 +26,12 @@
   margin: 0;
   padding: 0;
 }
+
 .content_list_item{
   color: white;
   text-decoration: none;
+  transition: all .5s ease;
+}
+.content_list_item:hover{
+  opacity: 0.6;
 }
