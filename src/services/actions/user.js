@@ -24,6 +24,9 @@ export const UPDATE_TOKEN_SUCCESS ="UPDATE_TOKEN_SUCCESS";
 export const UPDATE_TOKEN_FAILED = 'UPDATE_TOKEN_FAILED';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const UPDATE_USER_FAILIED = 'UPDATE_USER_FAILIED';
+export const TOGGLE_NAME = 'TOGGLE_NAME';
+export const TOGGLE_EMAIL = 'TOGGLE_EMAIL';
+export const TOGGLE_PASS = 'TOGGLE_PASS'
 
 export function checkUser () {
   const token = getCookie("accessToken")
@@ -236,5 +239,22 @@ export function logout() {
               error:err
           })
       })
+  }
+}
+
+export const toggleInputName = () => {
+  return{
+    type: TOGGLE_NAME
+  }
+}
+export const toggleInputEmail = () => {
+  return{
+    type: TOGGLE_EMAIL
+  }
+}
+
+export const toggleInputPass = () => {
+  return{
+    type: TOGGLE_PASS
   }
 }

@@ -14,7 +14,7 @@ export default function HistoryDetails () {
 
 
   return(
-    <div>
+    <div className={HistoryDetailsStyle.wrapper}>
       <OrderHistoryDetails/>
     </div>
   )

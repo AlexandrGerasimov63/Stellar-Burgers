@@ -40,6 +40,7 @@ export default function Appheader() {
             to="/"
             className={`${headerStyle.link}`}
             activeClassName={headerStyle.activeLink}
+            exact
           >
             <MenuItem
               text="Конструктор"
@@ -48,7 +49,11 @@ export default function Appheader() {
               styleText={`text text_type_main-default pl-2`}
             />
           </NavLink>
-          <NavLink to="/feed" className={`${headerStyle.link}`}>
+          <NavLink to="/feed"
+          className={`${headerStyle.link}`}
+          activeClassName={headerStyle.activeLink}
+          exact
+          >
             <MenuItem
               text="Лента заказов"
               icon={<ListIcon type="secondary" />}
@@ -60,12 +65,16 @@ export default function Appheader() {
         <Link to="/" className={`${headerStyle.link}`}>
           <MenuItem icon={<Logo />} itemStyle={`${headerStyle.logo}`} />
         </Link>
-        <NavLink to="/profile" className={`${headerStyle.link}`}>
+        <NavLink to="/profile"
+        className={`${headerStyle.link}`}
+        activeClassName={headerStyle.activeLink}
+        // exact
+        >
           <MenuItem
             text="Личный кабинет"
             icon={<ProfileIcon type="secondary" />}
             itemStyle={`${headerStyle.menuItems} mt-4 mb-4 pl-5 pt-4 pb-4`}
-            styleText={`text text_type_main-default text_color_inactive pl-2`}
+            styleText={`text text_type_main-default pl-2`}
           />
         </NavLink>
       </Menu>

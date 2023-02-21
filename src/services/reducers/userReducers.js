@@ -16,6 +16,9 @@ import {
   UPDATE_TOKEN_FAILED,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAILIED,
+  TOGGLE_NAME,
+  TOGGLE_EMAIL,
+  TOGGLE_PASS,
 } from "../actions/user";
 import { REGISTER_SENDING_REQUEST } from "../actions/user";
 import { REGISTER_SENDING_FAILED } from "../actions/user";
@@ -39,6 +42,9 @@ const userInitialState = {
   resetPass: false,
   code: "",
   recoveryPass: false,
+  nameInput: false,
+  emailInput: false,
+  passInput: false,
 };
 
 export const authReducer = (state = userInitialState, action) => {
@@ -173,7 +179,10 @@ export const authReducer = (state = userInitialState, action) => {
         ...state,
         name:state.userName,
         email:state.userEmail,
-        password:state.userPassword
+        password:state.userPassword,
+        nameInput: false,
+        emailInput: false,
+        passInput: false,
       }
     case GET_USER:
       return{
@@ -210,13 +219,31 @@ export const authReducer = (state = userInitialState, action) => {
         isLogin: true,
         userName: action.data.user.name,
         userEmail:action.data.user.email,
-        hasError: false
+        hasError: false,
+        nameInput: false,
+        emailInput: false,
+        passInput: false,
       }
     case UPDATE_USER_FAILIED:
       return{
         ...state,
         hasError: true,
         error: action.error,
+      }
+    case TOGGLE_NAME:
+      return{
+        ...state,
+        nameInput: !state.nameInput
+      }
+    case TOGGLE_EMAIL:
+      return{
+        ...state,
+        emailInput: !state.emailInput
+      }
+    case TOGGLE_PASS:
+      return{
+        ...state,
+        passInput: !state.passInput
       }
     default: {
       return state;
