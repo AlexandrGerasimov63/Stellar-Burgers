@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
-import FeedStyle from "./Feed.module.css";
-import FeedCard from "../FeedCard/FeedCard";
+import FeedStyle from "./FeedPage.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import {
-  wsConnectedClosed,
-  wsConnectedStart,
-} from "../../services/actions/wsAction";
 import { useLocation, Link } from "react-router-dom";
-import FeedNumber from "../FeedNumber/FeedNumber";
 import { openFeedModal } from "../../services/actions/feed";
+import FeedNumber from "../../components/FeedNumber/FeedNumber";
+import { wsConnectedClosed, wsConnectedStart } from "../../services/actions/wsAction";
+import FeedCard from "../../components/FeedCard/FeedCard";
 
-export default function Feed() {
+
+export default function FeedPage() {
+
   const dispatch = useDispatch();
   const wsData = useSelector((store) => store.wsReducer.message);
   const location = useLocation();

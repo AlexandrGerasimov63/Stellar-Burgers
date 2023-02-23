@@ -11,6 +11,7 @@
   overflow: auto;
   overflow-x: hidden;
   height: 650px;
+  width: 750px;
 }
 .content_box::-webkit-scrollbar{
   background-color: #2F2F37;

@@ -167,7 +167,10 @@ export const authReducer = (state = userInitialState, action) => {
         ...state,
         name:state.userName,
         email:state.userEmail,
-        password:state.userPassword
+        password:state.userPassword,
+        nameInput: false,
+        emailInput: false,
+        passInput: false,
       }
     case PROFILE_FORM_VALUE:
       return {

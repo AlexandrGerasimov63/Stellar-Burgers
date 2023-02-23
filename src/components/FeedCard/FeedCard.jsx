@@ -2,19 +2,18 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import FeedCardStyle from "./FeedCard.module.css";
 
 
 export default function FeedCard({ data }) {
-  const { createdAt, number, name } = data;
+  const { createdAt, number, name,status } = data;
   const ingredients = useSelector((store) => store.burgerIngridient.ingridients);
-
+  const location = useLocation()
   const ingrList = data?.ingredients;
-  const date = () => {
-    return <FormattedDate date={new Date(createdAt)} />;
-  };
 
   const orderIngredientsData = useMemo(() => {
     return ingrList.map((id) => {
@@ -30,21 +29,49 @@ export default function FeedCard({ data }) {
     }, 0);
   }, [orderIngredientsData]);
 
+  const magicSix = 6
   const maxLength = ingrList.length;
-  const hideItems = maxLength - 6;
-
+  const hideItems = maxLength - magicSix;
+  const DONE = "done";
+  const PENDING = "pending";
+  const CREATED = "created"
+  const ORDER_PATH = '/profile/orders'
   return (
-    <div className={`${FeedCardStyle.wrapper} mr-2 mt-6 pt-6 pb-6 pl-6 pr-6 `}>
+    <div className={`${FeedCardStyle.wrapper} mr-2 mb-6 pt-6 pb-6 pl-6 pr-6 `}>
       <div className={FeedCardStyle.card_wrapper}>
         <div className={FeedCardStyle.title_wrapper}>
           <p className="text text_type_digits-default">#{number}</p>
           <p className="text text_type_main-default text_color_inactive">
-            {date()}
+            {<FormattedDate date={new Date(createdAt)} />}
           </p>
         </div>
         <h3 className="text text_type_main-medium mt-6">{name}</h3>
       </div>
-      <div className={`${FeedCardStyle.ingredients_wrapper} mt-6`}>
+
+      {location.pathname ===ORDER_PATH && status === DONE && (
+        <p
+          className={`${FeedCardStyle.status} text text_type_main-default mt-3 pt-3`}
+        >
+          Выполнен
+        </p>
+      )}
+       {location.pathname ===ORDER_PATH && status === PENDING && (
+        <p
+          className={`text text_type_main-default mt-3 pt-3`}
+        >
+          Готовится
+        </p>
+      )}
+      {location.pathname ===ORDER_PATH && status === CREATED && (
+        <p
+          className={`text text_type_main-default mt-3 pt-3`}
+        >
+          Создан
+        </p>
+      )}
+      <div
+      className={`${FeedCardStyle.ingredients_wrapper}
+      mt-6`}>
         <ul className={FeedCardStyle.ingredients_list}>
           {orderIngredientsData &&
             maxLength <= 5 &&
@@ -105,3 +132,9 @@ export default function FeedCard({ data }) {
     </div>
   );
 }
+
+
+FeedCard.propTypes = {
+  data: PropTypes.object.isRequired,
+
+};

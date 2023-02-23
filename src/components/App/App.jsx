@@ -21,13 +21,12 @@ import Profile from "../../pages/Profile/Profile";
 import { ProtectedRoute } from "../ProtectedRoute/ProtectedRoute";
 import { checkUser } from "../../services/actions/user";
 import DetailsPage from "../../pages/DetailsPage/DetailsPage";
-import Feed from "../Feed/Feed";
 import FeedDetails from "../FeedDetails/FeedDetails";
 import { closeFeedModal } from "../../services/actions/feed";
 import FeedDetailsPage from "../../pages/FeedDetailsPage/FeedDetailsPage";
-import OrderHistoryDetails from "../OrderHistoryDetails/OrderHistoryDetails";
 import { closeHistoryModal } from "../../services/actions/profileHistory";
 import HistoryDetails from "../../pages/HistoryDetails/HistoryDetails";
+import FeedPage from "../../pages/FeedPage/FeedPage";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -39,7 +38,7 @@ function App() {
   const history = useHistory();
   const location = useLocation();
   const background = location.state?.background;
- ;
+
   const orderModalOpen = useSelector((store) => store.order.modal);
 
   useEffect(() => {
@@ -106,11 +105,11 @@ function App() {
         <Route path="/ingredients/:id">
           <DetailsPage />
         </Route>
-        <Route path="/feed" exact>
-          <Feed/>
-        </Route>
         <Route path="/feed/:id">
           <FeedDetailsPage/>
+        </Route>
+        <Route path="/feed" exact>
+          <FeedPage/>
         </Route>
       </Switch>
       {background && (
@@ -130,7 +129,7 @@ function App() {
       {background &&(
         <Route path="/profile/orders/:id">
           <Modal close={getCloseHistoryModal}>
-            <OrderHistoryDetails/>
+            <FeedDetails/>
           </Modal>
         </Route>
       )}

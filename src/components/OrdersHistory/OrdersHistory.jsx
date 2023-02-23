@@ -6,8 +6,8 @@ import {
 } from "../../services/actions/wsActionUsers";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import OrderHistoryCard from "../OrderHistoryCard/OrderHistoryCard";
 import { openHistoryModal } from "../../services/actions/profileHistory";
+import FeedCard from "../FeedCard/FeedCard";
 
 export default function OrdersHistory() {
   const location = useLocation();
@@ -19,6 +19,7 @@ export default function OrdersHistory() {
   }, []);
 
   const wsData = useSelector((store) => store?.wsUserReducer.message);
+  wsData.reverse()
 
   const getOpenHistoryModal = () => {
     dispatch(openHistoryModal())
@@ -41,7 +42,7 @@ export default function OrdersHistory() {
 
               className={OrdersHistoryStyle.content_list_item}
             >
-              <OrderHistoryCard data={data} />
+              <FeedCard data={data} />
             </Link>
           </li>
         ))}

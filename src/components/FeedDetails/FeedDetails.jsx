@@ -1,44 +1,53 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useRouteMatch } from "react-router-dom";
 import FeedDetailsStyle from "./FeedDetails.module.css";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 export default function FeedDetails() {
-  const ingredients = useSelector(
-    (store) => store.burgerIngridient.ingridients
-  );
-  const wsData = useSelector((store) => store.wsReducer.message);
+
+  const Data = useSelector((store)=>store.wsReducer.message)
+  const wsDataUser = useSelector((store)=>store.wsUserReducer.message)
   const { id } = useParams();
-  const order = wsData?.find((el) => el._id === id);
+  let match = useRouteMatch()
+  const isProfile = `/profile/orders/:id`;
+
+
+  const ingredients = useSelector(
+    (store) => store?.burgerIngridient.ingridients
+  );
+
+  let wsData = match.path===isProfile ? wsDataUser : Data;
+
+  let order = useMemo(() => {
+    return wsData?.find((el) => el._id === id);
+  }, [wsData]);
   const ingrList = order?.ingredients;
 
-  let summ = 0;
-  let dataArr = [];
-  if (ingrList) {
-    for (let el of ingredients) {
-      for (let id of ingrList) {
-        if (el._id === id) {
-          dataArr.push(el);
-          summ += el.price;
-        }
-      }
-    }
-  }
+  const orderIngredientsData = useMemo(() => {
+    return ingrList?.map((id) => {
+      return ingredients?.find((item) => {
+        return id === item._id;
+      });
+    });
+  }, [ingrList, ingredients]);
+
+  const orderTotalPrice = useMemo(() => {
+    return orderIngredientsData?.reduce((sum, item) => {
+      return (sum += item ? item.price : 0);
+    }, 0);
+  }, [orderIngredientsData]);
 
   function isCount(el) {
-    let count = dataArr.filter((item) => {
+    return orderIngredientsData.filter((item) => {
       return item === el;
     }).length;
-    return count;
   }
 
-  const date = () => {
-    return <FormattedDate date={new Date(order?.createdAt)} />;
-  };
 
   return (
     <div className={FeedDetailsStyle.wrapper}>
@@ -68,7 +77,7 @@ export default function FeedDetails() {
       </p>
       <div className={FeedDetailsStyle.item_box}>
         <ul className={FeedDetailsStyle.items_list}>
-          {[...new Set(dataArr)].map((item, index) => {
+          {[...new Set(orderIngredientsData)].map((item, index) => {
             return (
               <li className={`${FeedDetailsStyle.ingr_item} mt-6`} key={index}>
                 <div className={FeedDetailsStyle.list_ingr_wrapper}>
@@ -99,10 +108,12 @@ export default function FeedDetails() {
       </div>
       <div className={`${FeedDetailsStyle.total_wrapper} mt-10`}>
         <p className="text text_type_main-default text_color_inactive">
-          {date()}
+          {<FormattedDate date={new Date(order?.createdAt)} />}
         </p>
         <div className={FeedDetailsStyle.total_wrapper_box}>
-          <p className="text text_type_digits-default mr-2">{summ}</p>
+          <p className="text text_type_digits-default mr-2">
+            {orderTotalPrice}
+          </p>
           <CurrencyIcon />
         </div>
       </div>
