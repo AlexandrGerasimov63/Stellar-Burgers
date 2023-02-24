@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { DetailsType } from "../../utils/types";
 import FeedCardStyle from "./FeedCard.module.css";
 
 
@@ -135,6 +136,6 @@ export default function FeedCard({ data }) {
 
 
 FeedCard.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: DetailsType.isRequired
 
 };
