@@ -42,9 +42,9 @@ const userInitialState = {
   resetPass: false,
   code: "",
   recoveryPass: false,
-  nameInput: false,
-  emailInput: false,
-  passInput: false,
+  nameInput: true,
+  emailInput: true,
+  passInput: true,
 };
 
 export const authReducer = (state = userInitialState, action) => {
@@ -168,9 +168,9 @@ export const authReducer = (state = userInitialState, action) => {
         name:state.userName,
         email:state.userEmail,
         password:state.userPassword,
-        nameInput: false,
-        emailInput: false,
-        passInput: false,
+        nameInput: true,
+        emailInput: true,
+        passInput: true,
       }
     case PROFILE_FORM_VALUE:
       return {
@@ -183,9 +183,9 @@ export const authReducer = (state = userInitialState, action) => {
         name:state.userName,
         email:state.userEmail,
         password:state.userPassword,
-        nameInput: false,
-        emailInput: false,
-        passInput: false,
+        nameInput: true,
+        emailInput: true,
+        passInput: true,
       }
     case GET_USER:
       return{
@@ -223,9 +223,9 @@ export const authReducer = (state = userInitialState, action) => {
         userName: action.data.user.name,
         userEmail:action.data.user.email,
         hasError: false,
-        nameInput: false,
-        emailInput: false,
-        passInput: false,
+        nameInput: true,
+        emailInput: true,
+        passInput: true,
       }
     case UPDATE_USER_FAILIED:
       return{
