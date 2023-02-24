@@ -18,8 +18,8 @@ export default function OrdersHistory() {
     return () => dispatch(wsUserConnectedClosed());
   }, []);
 
-  const wsData = useSelector((store) => store?.wsUserReducer.message);
-  wsData.reverse()
+  const wsDataBox = useSelector((store) => store?.wsUserReducer.message);
+  const wsData=wsDataBox.slice().reverse()
 
   const getOpenHistoryModal = () => {
     dispatch(openHistoryModal())
