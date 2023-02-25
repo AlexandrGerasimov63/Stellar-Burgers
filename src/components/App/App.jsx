@@ -27,6 +27,7 @@ import FeedDetailsPage from "../../pages/FeedDetailsPage/FeedDetailsPage";
 import { closeHistoryModal } from "../../services/actions/profileHistory";
 import HistoryDetails from "../../pages/HistoryDetails/HistoryDetails";
 import FeedPage from "../../pages/FeedPage/FeedPage";
+import NotFound from "../../pages/NotFound/NotFound";
 
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
@@ -110,6 +111,9 @@ function App() {
         </Route>
         <Route path="/feed" exact>
           <FeedPage/>
+        </Route>
+        <Route path="*">
+          <NotFound/>
         </Route>
       </Switch>
       {background && (
