@@ -1,4 +1,4 @@
-import {OPEN_INGRIDIENT_MODAL,CLOSE_INGIRIDIENT_MODAL} from '../actions/details'
+import {OPEN_INGRIDIENT_MODAL,CLOSE_INGIRIDIENT_MODAL} from '../actions/details.ts'
 
 
 const detailsInitialState = {

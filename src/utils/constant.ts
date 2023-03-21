@@ -34,5 +34,5 @@ export const wsUserActions = {
   onMessage: WS_USER_GET_MESSAGE,
 };
 
-export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-export const wsUserUrl = 'wss://norma.nomoreparties.space/orders';
+export const wsUrl:string = 'wss://norma.nomoreparties.space/orders/all';
+export const wsUserUrl:string = 'wss://norma.nomoreparties.space/orders';

@@ -12,7 +12,7 @@ import { wsUrl,
   wsUserUrl,
   wsActions,
   wsUserActions
- } from './utils/constant.js';
+ } from './utils/constant';
 
 
 const composeEnhancers = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -24,7 +24,7 @@ const enhancer = composeEnhancers(
   );
 
 
-const store = createStore(rootReducer, enhancer)
+export const store = createStore(rootReducer, enhancer)
 
 
 const root = ReactDOM.createRoot(

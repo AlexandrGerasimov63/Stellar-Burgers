@@ -9,7 +9,7 @@ import { CardMap } from "./CardMap/CardMap";
 import { IngredientWrapper } from "./IngridientWrapper/IngridientWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { openIngridientModal } from "../../services/actions/details";
+import { openIngridientModal } from "../../services/actions/details.ts";
 
 export default function BurgerIngredients() {
 

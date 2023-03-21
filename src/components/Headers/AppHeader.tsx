@@ -1,4 +1,5 @@
-import React from "react";
+import React, { ReactNode } from "react";
+
 import {
   Logo,
   BurgerIcon,
@@ -8,27 +9,37 @@ import {
 import headerStyle from "./AppHeader.module.css";
 import { NavLink, Link } from "react-router-dom";
 
+type THeader = {
+  children: ReactNode
+
+}
+type TMenu = {
+  itemStyle: string,
+  text?: string,
+  styleText?: string,
+  icon: JSX.Element
+}
 export default function Appheader() {
-  function Header(props) {
+  function Header({children}:THeader) {
     return (
-      <header className={`${headerStyle.header}`}>{props.children}</header>
+      <header className={`${headerStyle.header}`}>{children}</header>
     );
   }
-  function Menu(props) {
-    return <nav className={`${headerStyle.navbar}`}>{props.children}</nav>;
+  function Menu({children}:THeader) {
+    return <nav className={`${headerStyle.navbar}`}>{children}</nav>;
   }
-  function MenuList(props) {
+  function MenuList({children}:THeader) {
     return (
       <ul className={`${headerStyle.menu}`}>
-        <li className={headerStyle.menuList}>{props.children}</li>
+        <li className={headerStyle.menuList}>{children}</li>
       </ul>
     );
   }
-  function MenuItem(props) {
+  function MenuItem({text,icon, itemStyle,styleText }: TMenu) {
     return (
-      <div className={props.itemStyle}>
-        {props.icon}
-        <p className={props.styleText}>{props.text}</p>
+      <div className={itemStyle}>
+        {icon}
+        <p className={styleText}>{text}</p>
       </div>
     );
   }

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import cardStyle from './Card.module.css'
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector} from "react-redux";
-import {openIngridientModal} from '../../../services/actions/details'
+import {openIngridientModal} from '../../../services/actions/details.ts'
 import { useDrag } from "react-dnd/dist/hooks";
 
-function Card(props) {
-  const { image, name, price, data } = props;
+function Card({ image, name, price, data }) {
+
   const dataIngridient = useSelector(store=>store.burgerConstructor.items);
   const bunIngridient = useSelector(store=>store.burgerConstructor.bun);
 

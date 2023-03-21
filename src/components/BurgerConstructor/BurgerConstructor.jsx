@@ -21,7 +21,7 @@ import { getOrderDetails, openOrderModal } from "../../services/actions/order";
 import { Link } from "react-router-dom";
 
 export default function BurgerConstructor() {
-  // Получение констан из стора
+  // Получение констант из стора
   const ingridientData = useSelector((store) => store.burgerConstructor.items);
   const bunData = useSelector((store) => store.burgerConstructor.bun);
   const isLogin = useSelector((store)=>store.auth.isLogin)
@@ -69,7 +69,7 @@ export default function BurgerConstructor() {
   });
 
   function ConstructorItem(props) {
-    // Перемещение эт-та внутри конструктора
+    // Перемещение эл-та внутри конструктора
 
     const ref = useRef(null);
     const { id } = props.item;
