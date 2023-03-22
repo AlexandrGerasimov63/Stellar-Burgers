@@ -1,9 +1,20 @@
+import { Middleware, MiddlewareAPI } from "redux";
 import { getCookie } from "../../utils/cookie";
 const token = getCookie("accessToken");
 
-export function socketMiddleware(url, actions, isLogin = false) {
-  return (store) => {
-    let socket = null;
+export interface IWsActions {
+  wsInit: string;
+  wsSendMessage: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onMessage: string;
+}
+
+
+export function socketMiddleware(url:string, actions:IWsActions, isLogin:boolean = false):Middleware {
+  return (store:MiddlewareAPI) => {
+    let socket:WebSocket | null = null;
 
     return (next) => (action) => {
       const { dispatch } = store;

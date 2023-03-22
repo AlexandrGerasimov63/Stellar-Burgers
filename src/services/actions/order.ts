@@ -25,7 +25,7 @@ export interface IGetOrderSuccess {
 
 export interface IGetOrderFailed {
   readonly type: typeof GET_ORDER_FAILED;
-  readonly error: unknown;
+  readonly error: string;
 }
 
 export type TOrder =

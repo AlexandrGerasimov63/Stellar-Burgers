@@ -1,11 +1,14 @@
-import {OPEN_INGRIDIENT_MODAL,CLOSE_INGIRIDIENT_MODAL} from '../actions/details.ts'
+import {OPEN_INGRIDIENT_MODAL,CLOSE_INGIRIDIENT_MODAL, TIngridientModal} from '../actions/details'
 
+export interface IDetailsInitialState {
+  openModal: boolean
+}
 
 const detailsInitialState = {
   openModal : false
 }
 
-export const detailsReducer = (state=detailsInitialState, action) => {
+export const detailsReducer = (state=detailsInitialState, action:TIngridientModal):IDetailsInitialState => {
   switch(action.type) {
     case OPEN_INGRIDIENT_MODAL:
       return {

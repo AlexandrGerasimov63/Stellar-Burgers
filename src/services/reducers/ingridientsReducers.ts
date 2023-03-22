@@ -1,8 +1,20 @@
+import { IIngredientType } from "../../utils/types";
 import {
   GET_INGRIDIENTS,
   GET_INGRIDIENTS_FAILED,
   GET_INGRIDIENTS_SUCCESS,
+  TIngridient,
 } from "../actions/ingridients";
+
+
+interface IIngredientInitialState {
+  ingridients: IIngredientType[]
+  ingridientsRequest: boolean,
+  ingridientsFailed: boolean,
+  isLoading: boolean,
+  hasError: boolean,
+  error:string
+}
 
 const ingridientsInitialState = {
   ingridients: [],
@@ -13,7 +25,7 @@ const ingridientsInitialState = {
   error:''
 };
 
-export const ingridientsReducer = (state = ingridientsInitialState, action) => {
+export const ingridientsReducer = (state = ingridientsInitialState, action:TIngridient):IIngredientInitialState => {
   switch (action.type) {
     case GET_INGRIDIENTS:
       return {

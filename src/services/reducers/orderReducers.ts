@@ -1,4 +1,13 @@
-import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED, CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL} from '../actions/order'
+import {GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED, CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL, TOrder} from '../actions/order'
+
+interface IOrderInitialState {
+  orderNumber: null | number,
+  orderFailed: boolean,
+  isLoading: boolean,
+  hasError: boolean,
+  error:string,
+  modal: null | boolean
+}
 
 const orderInitialState = {
   orderNumber: null,
@@ -9,7 +18,7 @@ const orderInitialState = {
   modal: null
 }
 
-export const orderReducer = (state=orderInitialState,action) => {
+export const orderReducer = (state=orderInitialState,action:TOrder):IOrderInitialState => {
   switch(action.type){
     case GET_ORDER:
       return{

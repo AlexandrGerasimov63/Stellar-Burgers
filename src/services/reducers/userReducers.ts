@@ -19,6 +19,7 @@ import {
   TOGGLE_NAME,
   TOGGLE_EMAIL,
   TOGGLE_PASS,
+  TUser,
 } from "../actions/user";
 import { REGISTER_SENDING_REQUEST } from "../actions/user";
 import { REGISTER_SENDING_FAILED } from "../actions/user";
@@ -28,6 +29,23 @@ import { LOGIN_FORM_FAILED } from "../actions/user";
 import { RESET_FORM_VALUE } from "../actions/user";
 import { setCookie } from "../../utils/cookie";
 
+interface IUserInitialState {
+  hasError: boolean,
+  name: string,
+  email: string,
+  password: string,
+  error: string,
+  userName: string,
+  userEmail: string,
+  userPassword: string,
+  isLogin: boolean,
+  resetPass: boolean,
+  code: string,
+  recoveryPass: boolean,
+  nameInput: boolean,
+  emailInput: boolean,
+  passInput: boolean,
+}
 
 const userInitialState = {
   hasError: false,
@@ -47,7 +65,7 @@ const userInitialState = {
   passInput: true,
 };
 
-export const authReducer = (state = userInitialState, action) => {
+export const authReducer = (state = userInitialState, action:TUser):IUserInitialState => {
   switch (action.type) {
     case GET_REGISTER:
       return {

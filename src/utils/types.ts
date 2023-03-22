@@ -14,6 +14,8 @@ import { THistoryModal } from "../services/actions/profileHistory";
 import { TIngridient } from "../services/actions/ingridients";
 import { TWsActions } from "../services/actions/wsAction";
 import { TWsUserAction } from "../services/actions/wsActionUsers";
+import { TUser } from "../services/actions/user";
+import { TConstructor } from "../services/actions/constructor";
 
 type TApplicationActions =
   | TIngridientModal
@@ -22,7 +24,9 @@ type TApplicationActions =
   | THistoryModal
   | TIngridient
   | TWsActions
-  | TWsUserAction;
+  | TWsUserAction
+  | TUser
+  | TConstructor
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -65,6 +69,27 @@ export interface IWsOrders {
   success: boolean;
   total: number;
   totalToday: number;
+}
+
+export interface IUserInfo {
+  success: boolean,
+  accessToken: string,
+  refreshToken: string,
+  user: {
+      email: string,
+      name: string
+  }
+}
+
+export interface IUpdateToken {
+  success: boolean,
+  accessToken: string,
+  refreshToken: string
+}
+
+export interface IUpdateUser {
+  email: string,
+  name: string
 }
 
 const ingredientType = PropTypes.shape({

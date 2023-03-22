@@ -1,9 +1,19 @@
+import { IWsOrder } from "../../utils/types";
 import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_FAILED,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
+  TWsActions,
 } from "../actions/wsAction";
+
+interface IInitialStateWs {
+  message: IWsOrder[],
+  isConnect: boolean,
+  isError: boolean,
+  total: null | number,
+  totalToday: null | number
+}
 
 const initialState = {
   message: [],
@@ -13,7 +23,7 @@ const initialState = {
   totalToday: null,
 };
 
-export function wsReducer(state = initialState, action) {
+export function wsReducer(state = initialState, action:TWsActions):IInitialStateWs {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

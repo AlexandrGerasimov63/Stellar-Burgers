@@ -1,4 +1,12 @@
-import { WS_USER_CONNECTION_SUCCESS, WS_USER_CONNECTION_CLOSED, WS_USER_CONNECTION_FAILED, WS_USER_GET_MESSAGE } from "../actions/wsActionUsers"
+import { IWsOrder } from "../../utils/types"
+import { WS_USER_CONNECTION_SUCCESS, WS_USER_CONNECTION_CLOSED, WS_USER_CONNECTION_FAILED, WS_USER_GET_MESSAGE, TWsUserAction } from "../actions/wsActionUsers"
+
+
+interface IInitialStateWsUser {
+  message: IWsOrder[],
+  isConnect: boolean,
+  isError: boolean
+}
 
 const initialState = {
     message: [],
@@ -7,7 +15,7 @@ const initialState = {
 }
 
 
-export function wsUserReducer(state = initialState, action) {
+export function wsUserReducer(state = initialState, action:TWsUserAction):IInitialStateWsUser {
    switch (action.type) {
     case WS_USER_CONNECTION_SUCCESS: {
         return {

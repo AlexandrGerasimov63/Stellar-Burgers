@@ -1,16 +1,23 @@
+import { IIngredientType } from "../../utils/types";
 import {
   ADD_INGRIDIENT,
   ADD_INGRIDIENT_BUN,
   DELETE_INGRIDIENT,
   MOVE_INGRIDIENT,
+  TConstructor,
 } from "../actions/constructor";
+
+export interface IInitialConstructorState{
+  items: IIngredientType[],
+  bun: IIngredientType | boolean
+}
 
 const InitialState = {
   items: [],
   bun: false,
 };
 
-export const constructorReducer = (state = InitialState, action) => {
+export const constructorReducer = (state = InitialState, action:TConstructor):IInitialConstructorState => {
   switch (action.type) {
     case ADD_INGRIDIENT:
       return {
@@ -27,7 +34,8 @@ export const constructorReducer = (state = InitialState, action) => {
     case DELETE_INGRIDIENT:
       return {
         ...state,
-        items: [...state.items].filter((item) => item.id !== action.id),
+
+        items: [...state.items].filter((item:any) => item.id !== action.id),
       };
       case MOVE_INGRIDIENT: {
 

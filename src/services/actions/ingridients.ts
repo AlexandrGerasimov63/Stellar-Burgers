@@ -16,7 +16,7 @@ export interface IGetIngridientsSuccess {
 
 export interface IGetIngridientsFailed {
   readonly type: typeof GET_INGRIDIENTS_FAILED;
-  readonly error: unknown;
+  readonly error: string;
 }
 
 export type TIngridient =
