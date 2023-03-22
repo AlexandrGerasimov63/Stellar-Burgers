@@ -4,7 +4,7 @@ interface IFeedInitialState {
   openModal: boolean
 }
 
-const feedInitialState = {
+const feedInitialState:IFeedInitialState = {
   openModal : false
 }
 

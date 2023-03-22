@@ -47,7 +47,7 @@ interface IUserInitialState {
   passInput: boolean,
 }
 
-const userInitialState = {
+const userInitialState:IUserInitialState = {
   hasError: false,
   name: "",
   email: "",

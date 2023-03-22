@@ -4,7 +4,7 @@ export interface IDetailsInitialState {
   openModal: boolean
 }
 
-const detailsInitialState = {
+const detailsInitialState:IDetailsInitialState = {
   openModal : false
 }
 

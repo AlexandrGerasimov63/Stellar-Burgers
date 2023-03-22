@@ -8,7 +8,7 @@ interface IInitialStateWsUser {
   isError: boolean
 }
 
-const initialState = {
+const initialState:IInitialStateWsUser = {
     message: [],
     isConnect: false,
     isError: false

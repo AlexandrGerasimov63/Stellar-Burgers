@@ -15,7 +15,7 @@ interface IInitialStateWs {
   totalToday: null | number
 }
 
-const initialState = {
+const initialState:IInitialStateWs = {
   message: [],
   isConnect: false,
   isError: false,

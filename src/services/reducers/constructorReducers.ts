@@ -12,7 +12,7 @@ export interface IInitialConstructorState{
   bun: IIngredientType | boolean
 }
 
-const InitialState = {
+const InitialState:IInitialConstructorState = {
   items: [],
   bun: false,
 };
@@ -35,7 +35,7 @@ export const constructorReducer = (state = InitialState, action:TConstructor):II
       return {
         ...state,
 
-        items: [...state.items].filter((item:any) => item.id !== action.id),
+        items: [...state.items].filter((item) => item.id !== action.id),
       };
       case MOVE_INGRIDIENT: {
 

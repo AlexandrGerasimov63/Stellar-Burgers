@@ -4,7 +4,7 @@ interface IHistoryInitialState{
   openModal: boolean
 }
 
-const historyInitialState = {
+const historyInitialState:IHistoryInitialState = {
   openModal : false
 }
 

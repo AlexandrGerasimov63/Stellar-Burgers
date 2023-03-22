@@ -9,7 +9,7 @@ interface IOrderInitialState {
   modal: null | boolean
 }
 
-const orderInitialState = {
+const orderInitialState:IOrderInitialState = {
   orderNumber: null,
   orderFailed: false,
   isLoading: false,

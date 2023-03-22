@@ -8,7 +8,7 @@ import appStyle from "./App.module.css";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/ingridients";
-import { closeIngridientModal } from "../../services/actions/details.ts";
+import { closeIngridientModal } from "../../services/actions/details";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { closeOrderModal } from "../../services/actions/order";

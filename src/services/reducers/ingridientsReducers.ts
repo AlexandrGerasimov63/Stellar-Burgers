@@ -16,7 +16,7 @@ interface IIngredientInitialState {
   error:string
 }
 
-const ingridientsInitialState = {
+const ingridientsInitialState:IIngredientInitialState = {
   ingridients: [],
   ingridientsRequest: false,
   ingridientsFailed: false,
