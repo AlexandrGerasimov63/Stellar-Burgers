@@ -6,7 +6,8 @@ import Modal from "../Modal/Modal";
 import { IngridientDetails } from "../IngidientsDetails/IngridientDetails";
 import appStyle from "./App.module.css";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch, ILocation } from "../../utils/types";
+// import { useDispatch, useSelector } from "react-redux";
 import { getBurgerIngredients } from "../../services/actions/ingridients";
 import { closeIngridientModal } from "../../services/actions/details";
 import { DndProvider } from "react-dnd";
@@ -29,6 +30,7 @@ import HistoryDetails from "../../pages/HistoryDetails/HistoryDetails";
 import FeedPage from "../../pages/FeedPage/FeedPage";
 import NotFound from "../../pages/NotFound/NotFound";
 
+
 function App() {
   const isLoading = useSelector((store) => store.burgerIngridient.isLoading);
   const hasError = useSelector((store) => store.burgerIngridient.hasError);
@@ -37,7 +39,7 @@ function App() {
   const refreshToken = localStorage.getItem("refreshToken");
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const background = location.state?.background;
 
   const orderModalOpen = useSelector((store) => store.order.modal);

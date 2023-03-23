@@ -9,12 +9,12 @@ import {
 
 export interface IInitialConstructorState{
   items: IIngredientType[],
-  bun: IIngredientType | boolean
+  bun: IIngredientType | null
 }
 
 const InitialState:IInitialConstructorState = {
   items: [],
-  bun: false,
+  bun: null
 };
 
 export const constructorReducer = (state = InitialState, action:TConstructor):IInitialConstructorState => {

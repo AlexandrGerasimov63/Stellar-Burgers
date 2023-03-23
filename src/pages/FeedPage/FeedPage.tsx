@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import FeedStyle from "./FeedPage.module.css"
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import { openFeedModal } from "../../services/actions/feed";
 import FeedNumber from "../../components/FeedNumber/FeedNumber";
 import { wsConnectedClosed, wsConnectedStart } from "../../services/actions/wsAction";
 import FeedCard from "../../components/FeedCard/FeedCard";
+import { useDispatch, useSelector } from "../../utils/types";
 
 
 export default function FeedPage() {

@@ -1,7 +1,9 @@
 import React from "react";
 import orderDetailsStyle from "./OrderDetails.module.css";
 import doneImg from "../../images/done.svg"
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/types";
+// import { useSelector } from "react-redux";
+
 
 function OrderDetails() {
   const orderNumber = useSelector(store=>store.order.orderNumber);

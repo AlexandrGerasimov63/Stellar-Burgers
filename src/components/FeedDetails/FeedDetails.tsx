@@ -1,18 +1,20 @@
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+
 import { useParams, useRouteMatch } from "react-router-dom";
 import FeedDetailsStyle from "./FeedDetails.module.css";
 import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { IIngredientType, useSelector } from "../../utils/types";
 
 
 export default function FeedDetails() {
 
   const Data = useSelector((store)=>store.wsReducer.message)
   const wsDataUser = useSelector((store)=>store.wsUserReducer.message)
-  const { id } = useParams();
+  const { id } = useParams<{id:string}>();
   let match = useRouteMatch()
   const isProfile = `/profile/orders/:id`;
 
@@ -42,12 +44,17 @@ export default function FeedDetails() {
     }, 0);
   }, [orderIngredientsData]);
 
-  function isCount(el) {
-    return orderIngredientsData.filter((item) => {
+  function isCount(el:IIngredientType) {
+    return orderIngredientsData?.filter((item) => {
       return item === el;
     }).length;
   }
-
+  // function isCount(el: IIngredientType) {
+  //   let count = orderIngredientsData?.filter((item) => {
+  //     return item === el;
+  //   }).length;
+  //   return count;
+  // }
 
   return (
     <div className={FeedDetailsStyle.wrapper}>
@@ -85,21 +92,21 @@ export default function FeedDetails() {
                     <div className={FeedDetailsStyle.image_wrapper_box}>
                       <img
                         className={FeedDetailsStyle.image}
-                        src={item.image_mobile}
-                        alt={item.name}
+                        src={item?.image_mobile}
+                        alt={item?.name}
                       />
                     </div>
                   </div>
                   <p className="text text_type_main-default ml-4">
-                    {item.name}
+                    {item?.name}
                   </p>
                 </div>
 
                 <div className={FeedDetailsStyle.price_wrapper}>
                   <p className="text text_type_digits-default mr-2">
-                    {isCount(item)} x {item.price}
+                    {isCount(item!)} x {item?.price}
                   </p>
-                  <CurrencyIcon />
+                  <CurrencyIcon type="primary" />
                 </div>
               </li>
             );
@@ -108,13 +115,13 @@ export default function FeedDetails() {
       </div>
       <div className={`${FeedDetailsStyle.total_wrapper} mt-10`}>
         <p className="text text_type_main-default text_color_inactive">
-          {<FormattedDate date={new Date(order?.createdAt)} />}
+          <FormattedDate date={new Date(order?.createdAt!)} />
         </p>
         <div className={FeedDetailsStyle.total_wrapper_box}>
           <p className="text text_type_digits-default mr-2">
             {orderTotalPrice}
           </p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary"/>
         </div>
       </div>
     </div>

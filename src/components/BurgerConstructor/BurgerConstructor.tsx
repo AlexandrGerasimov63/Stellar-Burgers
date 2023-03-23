@@ -15,10 +15,12 @@ import {
   ADD_INGRIDIENT_BUN,
   MOVE_INGRIDIENT,
 } from "../../services/actions/constructor";
-import { useDispatch, useSelector } from "react-redux";
+
+// import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, openOrderModal } from "../../services/actions/order";
 
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch, IIngredientType } from "../../utils/types";
 
 export default function BurgerConstructor() {
   // Получение констант из стора
@@ -27,7 +29,7 @@ export default function BurgerConstructor() {
   const isLogin = useSelector((store)=>store.auth.isLogin)
   // Получени id для отправки на сервер
   const ingridientsId = ingridientData.map((item) => item._id);
-  const productID = [...ingridientsId, bunData._id];
+  const productID = [...ingridientsId, bunData?._id];
 
   //Подсчитываем сумму
   const price = ingridientData.reduce(
@@ -43,7 +45,7 @@ export default function BurgerConstructor() {
   }
 
   // Удаление игридиента из списка
-  const onDelete = useCallback((id) => {
+  const onDelete = useCallback((id:string) => {
     dispatch({
       type: DELETE_INGRIDIENT,
       id,
@@ -53,7 +55,9 @@ export default function BurgerConstructor() {
   // Днд секция дропа
   const [, dropTarget] = useDrop({
     accept: "ingredients",
-    drop(item) {
+    drop(item:{
+      data:IIngredientType
+    }) {
       if (item.data.type === "bun") {
         dispatch({
           type: ADD_INGRIDIENT_BUN,
@@ -68,7 +72,14 @@ export default function BurgerConstructor() {
     },
   });
 
-  function ConstructorItem(props) {
+  function ConstructorItem(props:{
+    item:IIngredientType,
+    index: number,
+    name: string,
+    price: number,
+    image: string,
+
+  }) {
     // Перемещение эл-та внутри конструктора
 
     const ref = useRef(null);
@@ -87,7 +98,9 @@ export default function BurgerConstructor() {
 
     const [, drop] = useDrop({
       accept: "item",
-      drop(items) {
+      drop(items:{
+        index:number
+      }) {
         if (!ref.current) {
           return;
         }
@@ -183,7 +196,7 @@ export default function BurgerConstructor() {
     return (
       <div className={`${burgerConstructorStyle.fullPrice} pr-2`}>
         <p className="text text_type_digits-medium pr-2 pl-2">{price}</p>
-        <CurrencyIcon />
+        <CurrencyIcon type="primary"/>
       </div>
     );
   };

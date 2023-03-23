@@ -1,12 +1,12 @@
-import React, { useEffect, ReactNode, FC } from "react";
+import React, { useEffect, ReactNode} from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import modalStyle from "./Modal.module.css";
-import PropTypes from "prop-types";
+
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 
 type TModal = {
-  text: string;
+  text?: string;
   children: ReactNode;
   close: () => void;
 };
@@ -53,8 +53,8 @@ export default function Modal({text, children, close}:TModal) {
   );
 }
 
-Modal.propTypes = {
-  close: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  text: PropTypes.string,
-};
+// Modal.propTypes = {
+//   close: PropTypes.func.isRequired,
+//   children: PropTypes.node.isRequired,
+//   text: PropTypes.string,
+// };

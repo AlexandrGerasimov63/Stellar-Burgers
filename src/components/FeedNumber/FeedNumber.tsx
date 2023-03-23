@@ -1,6 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../utils/types";
+// import { useSelector } from "react-redux";
 import FeedNumberStyle from './FeedNumber.module.css'
+
 
 export default function FeedNumber () {
   const wsData = useSelector((store) => store.wsReducer.message);

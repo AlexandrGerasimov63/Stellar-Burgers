@@ -7,9 +7,11 @@ import { IngridientsSection } from "./IngridientSection/IngridientsSection";
 import { IngridientsTitle } from "./IngridientsTitle/IngridientsTitle";
 import { CardMap } from "./CardMap/CardMap";
 import { IngredientWrapper } from "./IngridientWrapper/IngridientWrapper";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+
 import { useInView } from "react-intersection-observer";
-import { openIngridientModal } from "../../services/actions/details.ts";
+import { openIngridientModal } from "../../services/actions/details";
+import { useDispatch, useSelector } from "../../utils/types";
 
 export default function BurgerIngredients() {
 
@@ -29,8 +31,8 @@ export default function BurgerIngredients() {
     threshold: 1,
   });
 
-  const scrollTab = (e) => {
-    const section = document.getElementById(e);
+  const scrollTab = (e:string) => {
+    const section:HTMLElement | null = document.getElementById(e)!;
 		section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const handleIngredientScroll = () => {
@@ -53,9 +55,9 @@ export default function BurgerIngredients() {
 		handleIngredientScroll();
 	}, [bunView, sauceView, mainView]);
 
-  function IngredientsTabs(props) {
+  function IngredientsTabs() {
     return (
-      <div className={props.tabStyle}>
+      <div className={`${burgerIngridientStyle.tab} mb-5`}>
         <Tab
           value="bun"
           active={current === "bun"}
@@ -87,7 +89,7 @@ export default function BurgerIngredients() {
   const mainArr = useMemo(()=>getArr.filter((item) => item.type === "main"),[getArr]);
   const sauceArr = useMemo(()=>getArr.filter((item) => item.type === "sauce"),[getArr]);
   const dispatch = useDispatch()
-  const openModal =(id) => {
+  const openModal =() => {
     dispatch(openIngridientModal())
   }
 
@@ -97,7 +99,7 @@ export default function BurgerIngredients() {
         text="Соберите бургер"
         textStyle={`${burgerIngridientStyle.title} text text_type_main-large mb-5`}
       />
-      <IngredientsTabs tabStyle={`${burgerIngridientStyle.tab} mb-5`} />
+      <IngredientsTabs/>
       <div className={`${burgerIngridientStyle.ingridientsList}`}>
         <IngredientWrapper text="Булки" tabRef={bunRef} type='bun'>
           <CardMap data={bunArr} open={openModal}/>

@@ -4,20 +4,29 @@ import {
   wsUserConnectedStart,
   wsUserConnectedClosed,
 } from "../../services/actions/wsActionUsers";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+
 import { Link, useLocation } from "react-router-dom";
 import { openHistoryModal } from "../../services/actions/profileHistory";
 import FeedCard from "../FeedCard/FeedCard";
+import { ILocation, useDispatch, useSelector } from "../../utils/types";
+
+
 
 export default function OrdersHistory() {
-  const location = useLocation();
+  const location = useLocation<ILocation>();
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(wsUserConnectedStart());
     return () => dispatch(wsUserConnectedClosed());
   }, []);
 
+  // useEffect(() => {
+  //   dispatch(wsConnectedStart());
+  //   return () => dispatch(wsConnectedClosed());
+  // }, []);
   const wsDataBox = useSelector((store) => store?.wsUserReducer.message);
   const wsData=wsDataBox.slice().reverse()
 

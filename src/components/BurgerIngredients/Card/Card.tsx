@@ -2,11 +2,20 @@ import React from "react";
 import PropTypes from 'prop-types'
 import cardStyle from './Card.module.css'
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector} from "react-redux";
-import {openIngridientModal} from '../../../services/actions/details.ts'
-import { useDrag } from "react-dnd/dist/hooks";
+// import { useDispatch, useSelector} from "react-redux";
 
-function Card({ image, name, price, data }) {
+import {openIngridientModal} from '../../../services/actions/details'
+import { useDrag } from "react-dnd/dist/hooks";
+import { IIngredientType, useDispatch, useSelector } from "../../../utils/types";
+
+interface ICard {
+  image:string,
+  name:string,
+  price: number,
+  data: IIngredientType
+}
+
+function Card({ image, name, price, data }:ICard) {
 
   const dataIngridient = useSelector(store=>store.burgerConstructor.items);
   const bunIngridient = useSelector(store=>store.burgerConstructor.bun);
@@ -15,15 +24,15 @@ function Card({ image, name, price, data }) {
     for (let { _id } of dataIngridient)
 
     if (_id === data._id) count++;
-    if (data.type === 'bun' && (bunIngridient._id === data._id)) count++;
+    if (data.type === 'bun' && (bunIngridient?._id === data._id)) count++;
 
     return count;
   }
 
 
   const dispatch  = useDispatch()
-  const openDetailsModal = (data) => {
-    dispatch (openIngridientModal(data))
+  const openDetailsModal = () => {
+    dispatch (openIngridientModal())
   }
 
   const [{ opacity }, dragRef] = useDrag({
@@ -36,7 +45,7 @@ function Card({ image, name, price, data }) {
 
 
   return (
-    <div className={cardStyle.cardWrapper} onClick={()=>openDetailsModal(data)} style={{opacity}} ref={dragRef}>
+    <div className={cardStyle.cardWrapper} onClick={()=>openDetailsModal()} style={{opacity}} ref={dragRef}>
       <img
         src={image}
         alt={name}
@@ -57,13 +66,13 @@ function Card({ image, name, price, data }) {
 }
 
 
-Card.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  data: PropTypes.object.isRequired
+// Card.propTypes = {
+//   image: PropTypes.string.isRequired,
+//   name: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   data: PropTypes.object.isRequired
 
-}
+// }
 
 
 export {Card}

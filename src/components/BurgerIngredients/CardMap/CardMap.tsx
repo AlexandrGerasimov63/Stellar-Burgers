@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../../utils/types";
+import { IIngredientType, ILocation, ingredientType } from "../../../utils/types";
 import cardMapStyle from "./cardMap.module.css";
 import { Card } from "../Card/Card";
 import { Link, useLocation } from "react-router-dom";
 
-function CardMap({ data, open }) {
-  const location = useLocation();
+interface ICardMap {
+  open: ()=>void,
+  data: IIngredientType[]
+}
+
+function CardMap({ data, open }:ICardMap) {
+  const location = useLocation<ILocation>();
   return data.map((ingr) => {
     return (
-      <li key={ingr._id} className={cardMapStyle.item} onClick={()=>open(ingr._id)}>
+      <li key={ingr._id} className={cardMapStyle.item} onClick={()=>open()}>
         <Link className={cardMapStyle.link}
         to={{
           pathname: `/ingredients/${ingr._id}`,
@@ -28,9 +33,6 @@ function CardMap({ data, open }) {
   });
 }
 
-CardMap.propTypes = {
-  data: PropTypes.arrayOf(ingredientType.isRequired).isRequired,
-  open: PropTypes.func.isRequired
-};
+
 
 export { CardMap };

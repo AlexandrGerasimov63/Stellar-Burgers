@@ -2,18 +2,20 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+
 import { useLocation } from "react-router-dom";
-import { DetailsType } from "../../utils/types";
+import { ILocation, IWsOrder, useSelector } from "../../utils/types";
 import FeedCardStyle from "./FeedCard.module.css";
 
-
-export default function FeedCard({ data }) {
+interface IFeedCard{
+  data: IWsOrder
+}
+export default function FeedCard({ data }:IFeedCard) {
   const { createdAt, number, name,status } = data;
   const ingredients = useSelector((store) => store.burgerIngridient.ingridients);
-  const location = useLocation()
+  const location = useLocation<ILocation>()
   const ingrList = data?.ingredients;
 
   const orderIngredientsData = useMemo(() => {
@@ -114,7 +116,7 @@ export default function FeedCard({ data }) {
                     <div className={FeedCardStyle.ingredients_image_box}>
                       <div className={FeedCardStyle.ingredients_image_wrapper_hidden}>
                         <div className={FeedCardStyle.ingredients_image_box}>
-                          <img src={item.image_mobile} alt={item.name} className={FeedCardStyle.ingredients_image_hidden}/>
+                          <img src={item?.image_mobile} alt={item?.name} className={FeedCardStyle.ingredients_image_hidden}/>
                         </div>
 
                         <p className={`${FeedCardStyle.hidden_text} text text_type_main-default`}>+{hideItems}</p>
@@ -135,7 +137,4 @@ export default function FeedCard({ data }) {
 }
 
 
-FeedCard.propTypes = {
-  data: DetailsType.isRequired
 
-};

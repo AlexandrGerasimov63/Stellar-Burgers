@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { Redirect, useLocation } from "react-router-dom";
-import FeedDetails from "../../components/FeedDetails/FeedDetails";
+import FeedDetails from "../../components/FeedDetails/FeedDetails.tsx";
 import { wsUserConnectedClosed, wsUserConnectedStart } from "../../services/actions/wsActionUsers";
 import { getCookie } from "../../utils/cookie";
 import HistoryDetailsStyle from './HistoryDetails.module.css'

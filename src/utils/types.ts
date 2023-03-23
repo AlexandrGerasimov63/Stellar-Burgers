@@ -92,6 +92,17 @@ export interface IUpdateUser {
   name: string
 }
 
+export interface ILocation{
+  background: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: null;
+    key: string;
+  };
+  from: string;
+  state?: object;
+};
 const ingredientType = PropTypes.shape({
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
