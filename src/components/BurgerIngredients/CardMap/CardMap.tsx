@@ -14,7 +14,7 @@ interface ICardMap {
 function CardMap({ data, open  }:ICardMap) {
 
   const location = useLocation<ILocation>();
-  return data.map((ingr) => {
+  const element = data.map((ingr) => {
     return (
       <li key={ingr._id} className={cardMapStyle.item} onClick={()=>open()}>
         <Link className={cardMapStyle.link}
@@ -33,6 +33,11 @@ function CardMap({ data, open  }:ICardMap) {
       </li>
     );
   });
+  return (
+    <>
+    {element}
+    </>
+  )
 }
 
 

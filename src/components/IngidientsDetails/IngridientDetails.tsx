@@ -3,17 +3,21 @@ import ingridientDetailsStyle from "./IngridientDetails.module.css";
 
 
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { IIngredientType, useSelector } from "../../utils/types";
+// import { useSelector } from "react-redux";
 
 
 function IngridientDetails() {
-  const {id}= useParams();
+  const { id } = useParams<{id: string}>();
   const ingredients = useSelector((store) => store.burgerIngridient.ingridients);
-  const data = ingredients.find(item => item._id === id);
+  const data = ingredients?.find(item => item._id === id);
   if(!data){
     return null
   }
-  function Ingridient(data) {
+  function Ingridient(data:{
+    text:string,
+    value:number
+  }) {
     return (
       <li className={`${ingridientDetailsStyle.item}`}>
         <p
