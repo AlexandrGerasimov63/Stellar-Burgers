@@ -7,8 +7,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { setFormValue, registration } from "../../services/actions/user";
+import { useDispatch, useSelector } from "../../utils/types";
 
 export default function Registration() {
   const dispatch = useDispatch();
@@ -19,12 +20,12 @@ export default function Registration() {
   const hasError = useSelector((store)=>store.auth.hasError);
   const isLogin = useSelector((store)=>store.auth.isLogin)
 
-  function inputUser(evt) {
+  function inputUser(evt:React.ChangeEvent<HTMLInputElement>) {
     dispatch(setFormValue(evt.target.name, evt.target.value));
   }
 
 
-  function submitForm(evt) {
+  function submitForm(evt:React.FormEvent) {
     evt.preventDefault();
     dispatch(registration(name, email, pass));
   }

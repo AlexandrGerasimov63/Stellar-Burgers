@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
   Button,
@@ -16,12 +16,15 @@ import {
   updateUser,
 } from "../../services/actions/user";
 import profileStyles from "./Profile.module.css";
+import { useDispatch, useSelector } from "../../utils/types";
+
+
 
 export default function ProfileForm () {
   const dispatch = useDispatch();
-  const inputNameRef = React.useRef(null);
-  const inputEmailRef = React.useRef(null);
-  const inputPasswordRef = React.useRef(null)
+  const inputNameRef = React.useRef<HTMLInputElement>(null);
+  const inputEmailRef = React.useRef<HTMLInputElement>(null);
+  const inputPasswordRef = React.useRef<HTMLInputElement>(null)
   const userName = useSelector((store) => store.auth.userName);
   const userEmail = useSelector((store) => store.auth.userEmail);
   const userPass = useSelector((store) => store.auth.userPassword);
@@ -34,7 +37,7 @@ export default function ProfileForm () {
   const passInput = useSelector((store)=>store.auth.passInput);
 
 
-  const onChange = (evt) => {
+  const onChange = (evt:React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setProfileValue(evt.target.name, evt.target.value));
   };
 
@@ -44,27 +47,27 @@ export default function ProfileForm () {
   }, []);
 
 
-  function onClickReset(evt) {
+  function onClickReset(evt:React.FormEvent) {
     evt.preventDefault();
     dispatch(resetProfileValue());
   }
 
-  function onSubmitUser(evt) {
+  function onSubmitUser(evt:React.FormEvent) {
     evt.preventDefault();
     dispatch(updateUser(name, email, pass));
   }
 
   function toggleName () {
     dispatch(toggleInputName());
-    setTimeout(() => inputNameRef.current.focus(), 0)
+    setTimeout(() => inputNameRef.current?.focus(), 0)
   }
   function toggleEmail () {
     dispatch(toggleInputEmail());
-    setTimeout(() => inputEmailRef.current.focus(), 0)
+    setTimeout(() => inputEmailRef.current?.focus(), 0)
   }
   function togglePass () {
     dispatch(toggleInputPass());
-    setTimeout(() => inputPasswordRef.current.focus(), 0)
+    setTimeout(() => inputPasswordRef.current?.focus(), 0)
   }
 
   return(

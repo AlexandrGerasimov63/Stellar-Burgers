@@ -6,7 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { setResetValue, resetPass } from "../../services/actions/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../utils/types";
+import { ReactEventHandler } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
 
 
 
@@ -20,11 +23,11 @@ export default function Forgot() {
   const err = useSelector((store)=>store.auth.error)
   const hasError = useSelector((store)=>store.auth.hasError)
 
-  function inputEmailReset (evt){
+  function inputEmailReset (evt:React.ChangeEvent<HTMLInputElement>){
     dispatch(setResetValue(evt.target.name, evt.target.value));
   }
 
-  function submitResetForm(evt) {
+  function submitResetForm(evt:React.FormEvent) {
     evt.preventDefault();
     dispatch(resetPass(email))
   }

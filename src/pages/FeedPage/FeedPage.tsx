@@ -6,21 +6,21 @@ import { openFeedModal } from "../../services/actions/feed";
 import FeedNumber from "../../components/FeedNumber/FeedNumber";
 import { wsConnectedClosed, wsConnectedStart } from "../../services/actions/wsAction";
 import FeedCard from "../../components/FeedCard/FeedCard";
-import { useDispatch, useSelector } from "../../utils/types";
+import { ILocation, useDispatch, useSelector } from "../../utils/types";
 
 
 export default function FeedPage() {
 
   const dispatch = useDispatch();
   const wsData = useSelector((store) => store.wsReducer.message);
-  const location = useLocation();
+  const location = useLocation<ILocation>();
 
   const getOpenFeedModal = () => {
     dispatch(openFeedModal())
   }
   useEffect(() => {
     dispatch(wsConnectedStart());
-    return () => dispatch(wsConnectedClosed());
+    return () => {dispatch(wsConnectedClosed())};
   }, []);
 
   return (

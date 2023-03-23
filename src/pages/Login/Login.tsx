@@ -6,8 +6,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { setLoginValue, login } from "../../services/actions/user";
+import { ILocation, useDispatch, useSelector } from "../../utils/types";
 
 
 
@@ -18,13 +19,13 @@ export default function Login() {
   const err = useSelector((store)=>store.auth.error)
   const hasError = useSelector((store)=>store.auth.hasError)
   const isLogin = useSelector((store)=>store.auth.isLogin)
-  const location = useLocation();
+  const location = useLocation<ILocation>();
 
-  function inputUser(evt) {
+  function inputUser(evt:React.ChangeEvent<HTMLInputElement>) {
     dispatch(setLoginValue(evt.target.name, evt.target.value));
   }
 
-  function submitForm(evt) {
+  function submitForm(evt:React.FormEvent) {
 
     evt.preventDefault();
     dispatch(login( email, pass));

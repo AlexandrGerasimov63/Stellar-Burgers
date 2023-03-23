@@ -6,8 +6,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { recoveryPass, setRecoveryValue } from "../../services/actions/user";
+import { useDispatch, useSelector } from "../../utils/types";
 
 
 
@@ -21,14 +22,14 @@ export default function Reset () {
   const hasError = useSelector((store)=>store.auth.hasError)
   const recoveryPassComplited = useSelector((store)=>store.auth.recoveryPass)
 
-  console.log(recoveryPassComplited);
 
 
-  function inputRecovery (evt){
+
+  function inputRecovery (evt:React.ChangeEvent<HTMLInputElement>){
     dispatch(setRecoveryValue(evt.target.name, evt.target.value));
   }
 
-  function submitRecovery (evt) {
+  function submitRecovery (evt:React.FormEvent) {
     evt.preventDefault();
     dispatch(recoveryPass(pass, code))
   }

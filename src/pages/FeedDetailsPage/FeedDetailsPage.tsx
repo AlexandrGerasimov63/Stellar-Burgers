@@ -12,7 +12,7 @@ export default function FeedDetailsPage () {
 
   useEffect(() => {
     dispatch(wsConnectedStart());
-    return () => dispatch(wsConnectedClosed());
+    return () => {dispatch(wsConnectedClosed())};
   }, []);
 
   return(

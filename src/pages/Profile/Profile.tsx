@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route, Switch , useLocation} from "react-router-dom";
 import {
   logout,
@@ -9,12 +9,15 @@ import profileStyles from "./Profile.module.css";
 import OrdersHistory from "../../components/OrdersHistory/OrdersHistory";
 import ProfileForm from "./ProfileForm";
 import { ProtectedRoute } from "../../components/ProtectedRoute/ProtectedRoute";
+import { ILocation, useDispatch, useSelector } from "../../utils/types";
+
+
 
 export default function Profile() {
   const err = useSelector((store) => store.auth.error);
   const hasError = useSelector((store) => store.auth.hasError);
   const dispatch = useDispatch()
-  const location = useLocation();
+  const location = useLocation<ILocation>();
   const background = location.state?.background;
 
 

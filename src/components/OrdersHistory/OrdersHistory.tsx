@@ -18,15 +18,12 @@ export default function OrdersHistory() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(()=> {
     dispatch(wsUserConnectedStart());
-    return () => dispatch(wsUserConnectedClosed());
+    return () => {dispatch(wsUserConnectedClosed())};
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(wsConnectedStart());
-  //   return () => dispatch(wsConnectedClosed());
-  // }, []);
+
   const wsDataBox = useSelector((store) => store?.wsUserReducer.message);
   const wsData=wsDataBox.slice().reverse()
 

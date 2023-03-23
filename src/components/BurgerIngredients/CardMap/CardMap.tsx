@@ -1,16 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { IIngredientType, ILocation, ingredientType } from "../../../utils/types";
+import { IIngredientType, ILocation} from "../../../utils/types";
 import cardMapStyle from "./cardMap.module.css";
 import { Card } from "../Card/Card";
 import { Link, useLocation } from "react-router-dom";
+
 
 interface ICardMap {
   open: ()=>void,
   data: IIngredientType[]
 }
 
-function CardMap({ data, open }:ICardMap) {
+
+function CardMap({ data, open  }:ICardMap) {
+
   const location = useLocation<ILocation>();
   return data.map((ingr) => {
     return (

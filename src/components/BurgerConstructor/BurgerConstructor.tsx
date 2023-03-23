@@ -127,7 +127,7 @@ export default function BurgerConstructor() {
           text={props.name}
           price={props.price}
           thumbnail={props.image}
-          handleClose={() => onDelete(props.item.id)}
+          handleClose={() => onDelete(props.item.id!)}
         />
       </li>
     );
