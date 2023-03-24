@@ -47,7 +47,7 @@ export const openOrderModal = (): IOpenOrderModal => {
   };
 };
 
-export const getOrderDetails:AppThunk = (order:Array<string>) => {
+export const getOrderDetails:AppThunk = (order:number) => {
   return function (dispatch:AppDispatch) {
     dispatch({
       type: GET_ORDER,

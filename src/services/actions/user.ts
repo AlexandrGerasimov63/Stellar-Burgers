@@ -79,7 +79,7 @@ export interface IUpdateTokenFailed {
 export const checkUser:AppThunk = () => {
   const token = getCookie("accessToken")
   return function (dispatch:AppDispatch) {
-    getUser(token)
+    getUser(token!)
     .then((res)=>{
       dispatch({
         type: GET_USER,
@@ -93,7 +93,7 @@ export const checkUser:AppThunk = () => {
         error:err,
       })
       const token = localStorage.getItem("refreshToken")
-      updateToken(token)
+      updateToken(token!)
       .then((res)=>{
         dispatch({
           type: UPDATE_TOKEN_SUCCESS,
@@ -124,7 +124,7 @@ export interface IUpdateUserFailed {
 export const updateUser:AppThunk = (name:string, email:string, pass:string) => {
   const token = getCookie("accessToken");
   return function (dispatch:AppDispatch) {
-    updateUserInfo(name, email, pass, token)
+    updateUserInfo(name, email, pass, token!)
     .then((res)=>{
       dispatch({
         type: UPDATE_USER_SUCCESS,
