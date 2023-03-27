@@ -1,0 +1,38 @@
+.wrapper{
+  margin: 0 auto;
+  max-width: 1240px;
+}
+.content_wrapper{
+  display: flex;
+  position: relative;
+}
+.content_box{
+  margin-left: 60px;
+  overflow: auto;
+  overflow-x: hidden;
+  height: 650px;
+  width: 750px;
+}
+.content_box::-webkit-scrollbar{
+  background-color: #2F2F37;
+  width: 8px;
+}
+.content_box::-webkit-scrollbar-thumb{
+  background-color: #8585AD;
+}
+
+.content_list{
+  margin-left: 60px;
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.content_list_item{
+  color: white;
+  text-decoration: none;
+  transition: all .5s ease;
+}
+.content_list_item:hover{
+  opacity: 0.6;
+}

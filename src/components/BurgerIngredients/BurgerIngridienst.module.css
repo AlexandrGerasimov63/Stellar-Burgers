@@ -1,0 +1,32 @@
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.tab {
+  display: flex;
+}
+
+.ingridientsList{
+  height: calc(100vh - 324px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0;
+  padding-left: 0;
+}
+.ingridientsList::-webkit-scrollbar {
+  background-color: #2F2F37;
+  width: 8px;
+}
+.ingridientsList::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+}

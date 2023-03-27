@@ -1,0 +1,11 @@
+.itemList {
+  display: flex;
+  padding: 0;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  column-gap: 18px;
+  align-items: center;
+}
+.subtitle {
+  text-align: left;
+}

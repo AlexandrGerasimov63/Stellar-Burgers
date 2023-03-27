@@ -1,0 +1,55 @@
+.content_box {
+  margin: 120px auto 0;
+  display: flex;
+  width: calc(100% - 690px);
+}
+
+.menu_wrapper {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu_button {
+  width: 100%;
+  cursor: pointer;
+  background-color: inherit;
+  transition: all .3s ease-out;
+  color: #8585AD;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menu_button:hover {
+  color: white;
+}
+
+.active_button {
+  color: white;
+}
+
+.inputs_wrapper {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  width: 100%;
+}
+
+.buttons_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.order_wrapper{
+  height: calc(100vh - 270px);
+  width: 844px;
+  overflow: auto;
+  overflow-x: hidden;
+}
